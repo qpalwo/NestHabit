@@ -44,7 +44,8 @@
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"></activity>
         <!-- 反馈组件 END -->
 
-        <activity android:name=".NestContentActivity"></activity>
+        <activity android:name=".NestContentActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>
