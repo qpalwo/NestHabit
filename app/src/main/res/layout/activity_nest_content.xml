@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NestContentActivity">
+    tools:context=".activity.NestContentActivity">
 
     <include layout="@layout/toolbar" />
 
@@ -82,13 +82,15 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.design.widget.FloatingActionButton
+        <Button
             android:id="@+id/punch"
             android:layout_width="120dp"
             android:layout_height="48dp"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/finish"/>
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <android.support.design.widget.TabLayout
@@ -99,5 +101,5 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/nest_content_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -1,5 +1,6 @@
-package com.example.nesthabit;
+package com.example.nesthabit.fragment;
 
+import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseFragment;
 
 /**

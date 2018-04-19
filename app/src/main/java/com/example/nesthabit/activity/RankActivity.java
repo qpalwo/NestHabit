@@ -1,36 +1,28 @@
-package com.example.nesthabit;
+package com.example.nesthabit.activity;
 
-import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.widget.TextView;
 
+import com.example.nesthabit.R;
+import com.example.nesthabit.fragment.RankFragment;
+import com.example.nesthabit.adapter.NestContentPagerAdapter;
 import com.example.nesthabit.base.BaseActivity;
 
 import java.util.ArrayList;
 
-public class NestContentActivity extends BaseActivity {
+public class RankActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nest_content);
-        initView();
+        setContentView(R.layout.activity_rank);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.nest_content_menu,menu);
-        return true;
-    }
-
     private void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,18 +32,18 @@ public class NestContentActivity extends BaseActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.back);
             actionBar.setDisplayShowTitleEnabled(false);
             TextView toolbarTitle = findViewById(R.id.toolbar_title);
-            toolbarTitle.setText("早起的鸟儿有虫吃");
+            toolbarTitle.setText("排行榜");
         }
 
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new PunchAndCommunicateFragment());
-        fragments.add(new PunchAndCommunicateFragment());
+        fragments.add(new RankFragment());
+        fragments.add(new RankFragment());
         FragmentManager fragmentManager = getSupportFragmentManager();
         NestContentPagerAdapter pagerAdapter = new NestContentPagerAdapter(fragmentManager,fragments);
-        ViewPager viewPager = findViewById(R.id.nest_content_pager);
+        ViewPager viewPager = findViewById(R.id.rank_pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(0);
-        TabLayout tabLayout = findViewById(R.id.nest_content_tab_layout);
+        TabLayout tabLayout = findViewById(R.id.rank_tab_layout);
         tabLayout.setupWithViewPager(viewPager);
     }
 }
