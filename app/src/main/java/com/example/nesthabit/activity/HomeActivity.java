@@ -1,4 +1,4 @@
-package com.example.nesthabit.home;
+package com.example.nesthabit.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.nesthabit.R;
-import com.example.nesthabit.activity.HomeView;
 import com.example.nesthabit.adapter.HomePagerAdapter;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.fragment.ClockFragment;
+import com.example.nesthabit.presenter.HomePresenter;
 
 import java.util.ArrayList;
 import java.util.List;

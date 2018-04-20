@@ -1,4 +1,4 @@
-package com.example.nesthabit.clock;
+package com.example.nesthabit.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,13 +19,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdapter.ViewHolder> {
     private List<ClockInfo> clockInfos = new ArrayList<>();
     private ItemOnClickListener itemOnClickListener;
 
-    ClockRecyclerAdapter(ItemOnClickListener itemOnClickListener) {
+    public ClockRecyclerAdapter(ItemOnClickListener itemOnClickListener) {
         this.itemOnClickListener = itemOnClickListener;
     }
 

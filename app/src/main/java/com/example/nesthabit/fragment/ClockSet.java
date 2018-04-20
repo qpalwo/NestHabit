@@ -1,11 +1,12 @@
-package com.example.nesthabit.clock_set;
+package com.example.nesthabit.fragment;
 
 import android.os.Bundle;
 
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseActivity;
+import com.example.nesthabit.presenter.ClockSetPresenter;
 
-public class ClockSet extends BaseActivity implements ClockView {
+public class ClockSet extends BaseActivity implements ClockSetView {
 
     private ClockSetPresenter clockSetPresenter;
 

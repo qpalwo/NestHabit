@@ -1,4 +1,4 @@
-package com.example.nesthabit.clock;
+package com.example.nesthabit.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.base.ItemOnClickListener;
-import com.example.nesthabit.fragment.ClockView;
+import com.example.nesthabit.presenter.ClockFraPresenter;
+import com.example.nesthabit.adapter.ClockRecyclerAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,7 +63,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //unbinder.unbind();
+        unbinder.unbind();
         clockFraPresenter.detachView();
     }
 

@@ -61,7 +61,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="#5C6B73"
-                android:layout_marginEnd="12dp"/>
+                android:layout_marginEnd="12dp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

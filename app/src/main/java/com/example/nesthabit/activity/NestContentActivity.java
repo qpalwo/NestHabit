@@ -28,7 +28,7 @@ public class NestContentActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.nest_content_menu,menu);
+        getMenuInflater().inflate(R.menu.nest_content_menu, menu);
         return true;
     }
 
@@ -48,7 +48,7 @@ public class NestContentActivity extends BaseActivity {
         fragments.add(new PunchAndCommunicateFragment());
         fragments.add(new PunchAndCommunicateFragment());
         FragmentManager fragmentManager = getSupportFragmentManager();
-        NestContentPagerAdapter pagerAdapter = new NestContentPagerAdapter(fragmentManager,fragments);
+        NestContentPagerAdapter pagerAdapter = new NestContentPagerAdapter(fragmentManager, fragments);
         ViewPager viewPager = findViewById(R.id.nest_content_pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(0);

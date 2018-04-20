@@ -1,4 +1,4 @@
-package com.example.nesthabit.home;
+package com.example.nesthabit.activity;
 
 import com.example.nesthabit.base.BaseView;
 

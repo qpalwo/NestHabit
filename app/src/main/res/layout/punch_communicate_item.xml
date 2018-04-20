@@ -8,19 +8,19 @@
         android:id="@+id/punch_communicate_avatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="12dp"/>
-    
+        android:layout_margin="12dp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
+
         <TextView
             android:id="@+id/punch_communicate_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:textSize="12sp"
-            android:textColor="@color/colorTextGrey"/>
+            android:textColor="@color/colorTextGrey" />
 
         <TextView
             android:id="@+id/punch_communicate_time"
@@ -30,8 +30,8 @@
             android:layout_marginStart="4dp"
             android:layout_alignEnd="@+id/punch_communicate_name"
             android:textSize="12sp"
-            android:textColor="@color/colorTextGrey"/>
-        
+            android:textColor="@color/colorTextGrey" />
+
         <TextView
             android:id="@+id/punch_communicate_text"
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
             android:textSize="14sp"
             android:background="@drawable/bubble_other"
             android:layout_marginTop="4dp"
-            android:layout_below="@+id/punch_communicate_name"/>
+            android:layout_below="@+id/punch_communicate_name" />
     </RelativeLayout>
 
 </LinearLayout>

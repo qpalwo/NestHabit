@@ -1,4 +1,4 @@
-package com.example.nesthabit.home;
+package com.example.nesthabit.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

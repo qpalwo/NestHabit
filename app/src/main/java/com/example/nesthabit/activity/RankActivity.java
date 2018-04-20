@@ -23,6 +23,7 @@ public class RankActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
     }
+
     private void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,7 +40,7 @@ public class RankActivity extends BaseActivity {
         fragments.add(new RankFragment());
         fragments.add(new RankFragment());
         FragmentManager fragmentManager = getSupportFragmentManager();
-        NestContentPagerAdapter pagerAdapter = new NestContentPagerAdapter(fragmentManager,fragments);
+        NestContentPagerAdapter pagerAdapter = new NestContentPagerAdapter(fragmentManager, fragments);
         ViewPager viewPager = findViewById(R.id.rank_pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(0);
