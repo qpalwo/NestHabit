@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.base.ItemOnClickListener;
+import com.example.nesthabit.fragment.ClockView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +62,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        //unbinder.unbind();
         clockFraPresenter.detachView();
     }
 

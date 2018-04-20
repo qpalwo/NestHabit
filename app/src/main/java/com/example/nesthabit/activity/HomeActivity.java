@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.nesthabit.R;
+import com.example.nesthabit.activity.HomeView;
+import com.example.nesthabit.adapter.HomePagerAdapter;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.base.BaseFragment;
-import com.example.nesthabit.clock.ClockFragment;
+import com.example.nesthabit.fragment.ClockFragment;
 
 import java.util.ArrayList;
 import java.util.List;
