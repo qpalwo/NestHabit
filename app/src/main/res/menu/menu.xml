@@ -3,9 +3,9 @@
     <item
         android:id="@+id/clock_menu"
         android:title="闹钟"
-        android:icon="@mipmap/clock_clicked" />
+        android:icon="@drawable/clock_selector" />
     <item
         android:id="@+id/nest_menu"
-        android:icon="@mipmap/nest_click"
+        android:icon="@drawable/nest_selector"
         android:title="鸟窝" />
 </menu>
