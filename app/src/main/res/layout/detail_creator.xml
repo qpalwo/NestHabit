@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.NestDetailActivity">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -27,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="简介"
+                    android:text="挑战天数"
                     android:textColor="@color/colorTextDark"
                     android:textSize="16sp" />
 
@@ -36,9 +33,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_margin="8dp"
-                    android:ellipsize="end"
-                    android:maxEms="8"
-                    android:singleLine="true"
                     android:textColor="@color/colorTextGrey"
                     android:textSize="16sp" />
 
@@ -59,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="成员"
+                    android:text="开始时间"
                     android:textColor="@color/colorTextDark"
                     android:textSize="16sp" />
 
@@ -87,62 +81,97 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <ViewStub
-        android:id="@+id/detail_creator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout="@layout/detail_creator" />
-
-    <ViewStub
-        android:id="@+id/detail_member"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout="@layout/detail_member" />
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="14dp"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="14sp"
         android:layout_marginTop="12dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="提醒朋友"
-                android:textColor="@color/colorTextDark"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="4dp"
-                android:background="@drawable/next" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp">
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/colorPink"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="限定成员数量"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="8dp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="#CCCCCC" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="成员数量"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:maxEms="8"
+                    android:singleLine="true"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="#CCCCCC" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="开放鸟窝入口"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="8dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
