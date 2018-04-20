@@ -11,10 +11,12 @@ import java.util.List;
 public class HomePagerAdapter extends FragmentPagerAdapter {
 
     List<BaseFragment> fragments;
+    String[] tabs;
 
-    public HomePagerAdapter(FragmentManager fm, List<BaseFragment> fragments) {
+    public HomePagerAdapter(FragmentManager fm, List<BaseFragment> fragments, String[] tabs) {
         super(fm);
         this.fragments = fragments;
+        this.tabs = tabs;
     }
 
     @Override
