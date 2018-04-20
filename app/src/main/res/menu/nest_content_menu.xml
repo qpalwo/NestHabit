@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/rank_menu_content"
+        android:icon="@drawable/rank"
+        android:title="rank"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/more_menu_content"
+        android:icon="@drawable/introduction"
+        android:title="introduction"
+        app:showAsAction="always" />
+
+</menu>
