@@ -3,14 +3,19 @@ package com.example.nesthabit.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.SaveCallback;
 import com.example.nesthabit.R;
 import com.example.nesthabit.adapter.HomePagerAdapter;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.fragment.ClockFragment;
+import com.example.nesthabit.model.ClockHelper;
 import com.example.nesthabit.presenter.HomePresenter;
 
 import java.util.ArrayList;
@@ -41,6 +46,18 @@ public class HomeActivity extends BaseActivity implements HomeView {
         ButterKnife.bind(this);
         homePresenter.attachView(this);
         initPager();
+
+        AVObject testObject = new AVObject("TestObject");
+        testObject.put("words","Hello World!");
+        testObject.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if(e == null){
+                    Log.d("saved","success!");
+                }
+            }
+        });
+
     }
 
     private void initPager() {
