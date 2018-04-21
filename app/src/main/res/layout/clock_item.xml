@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/clock_item_img"
@@ -17,71 +17,71 @@
             android:src="@mipmap/night" />
 
         <RelativeLayout
+            android:id="@+id/clock_item_checked"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_toEndOf="@id/clock_item_img"
             android:layout_toRightOf="@id/clock_item_img"
-            android:padding="5dp"
-            android:id="@+id/clock_item_checked">
+            android:padding="5dp">
 
             <TextView
-                android:layout_alignParentTop="true"
+                android:id="@+id/clock_item_slogan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/clock_item_slogan"
+                android:layout_alignParentTop="true"
                 android:layout_margin="5dp"
-                android:textSize="25sp"
+                android:text="我要早起"
                 android:textColor="#5c6b73"
-                android:text="我要早起" />
+                android:textSize="25sp" />
 
             <ImageView
+                android:id="@+id/clock_item_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/clock_item_logo"
+                android:layout_margin="5dp"
                 android:layout_toRightOf="@id/clock_item_slogan"
                 android:background="#ffffff"
-                android:src="@mipmap/friend_remind_none"
-                android:layout_margin="5dp" />
+                android:src="@mipmap/friend_remind_none" />
 
             <TextView
+                android:id="@+id/clock_item_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/clock_item_time"
                 android:layout_below="@id/clock_item_slogan"
                 android:layout_margin="5dp"
-                android:textSize="45sp"
-                android:textColor="#5c6b73"
                 android:text="07:59"
+                android:textColor="#5c6b73"
+                android:textSize="45sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/clock_item_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textSize="25sp"
-                android:textColor="#5c6b73"
-                android:id="@+id/clock_item_day"
                 android:layout_below="@id/clock_item_time"
-                android:text="每天" />
+                android:layout_margin="5dp"
+                android:text="每天"
+                android:textColor="#5c6b73"
+                android:textSize="25sp" />
 
             <TextView
+                android:id="@+id/clock_item_lefttime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textSize="25sp"
-                android:textColor="#78909c"
-                android:id="@+id/clock_item_lefttime"
                 android:layout_below="@id/clock_item_day"
-                android:text="还有23小时60分钟" />
+                android:layout_margin="5dp"
+                android:text="还有23小时60分钟"
+                android:textColor="#78909c"
+                android:textSize="25sp" />
 
 
         </RelativeLayout>
 
         <Switch
+            android:id="@+id/clock_item_switch"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/clock_item_switch" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

@@ -29,7 +29,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
 
     @Override
     public int getContentViewId() {
-        return R.layout.clock_fragment;
+        return R.layout.fragment_clock;
     }
 
     @Override

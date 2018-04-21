@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".activity.NestDetailActivity">
 
+    <include layout="@layout/toolbar" />
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +22,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/detail_introduction_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -32,6 +35,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/detail_introduction_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -52,6 +56,7 @@
                 android:background="#CCCCCC" />
 
             <RelativeLayout
+                android:id="@+id/detail_member_number_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -64,6 +69,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/detail_member_number_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -107,6 +113,7 @@
         android:layout_marginTop="12dp">
 
         <RelativeLayout
+            android:id="@+id/detail_remind_friend_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -130,6 +137,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/detail_exit_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -137,6 +145,7 @@
         android:layout_marginEnd="14dp">
 
         <TextView
+            android:id="@+id/detail_exit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -145,4 +154,9 @@
             android:layout_margin="10dp"
             android:textStyle="bold" />
     </android.support.v7.widget.CardView>
+
+    <include layout="@layout/invite_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"/>
 </LinearLayout>

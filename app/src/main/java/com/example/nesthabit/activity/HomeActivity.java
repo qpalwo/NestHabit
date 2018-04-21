@@ -41,6 +41,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
         ButterKnife.bind(this);
         homePresenter.attachView(this);
         initPager();
+        selectTab(0);
     }
 
     private void initPager() {

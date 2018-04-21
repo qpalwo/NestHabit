@@ -49,7 +49,11 @@
             android:name=".activity.NestContentActivity"
             android:exported="true" />
         <activity android:name=".activity.RankActivity" />
-        <activity android:name=".activity.NestDetailActivity"></activity>
+        <activity
+            android:name=".activity.NestDetailActivity"
+            android:exported="true" />
+        <activity android:name=".activity.ClockRemindActivity" />
+        <activity android:name=".activity.NestCreateActivity"></activity>
     </application>
 
 </manifest>

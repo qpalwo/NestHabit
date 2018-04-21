@@ -8,12 +8,6 @@
     android:layout_margin="5dp">
 
     <Button
-        android:id="@+id/clock_days_0"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/clock_button" />
-
-    <Button
         android:id="@+id/clock_days_1"
         android:layout_width="30dp"
         android:layout_height="30dp"
