@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.ItemOnClickListener;
-import com.example.nesthabit.model.bean.ClockInfo;
+import com.example.nesthabit.model.bean.Clock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdapter.ViewHolder> {
-    private List<ClockInfo> clockInfos = new ArrayList<>();
+    private List<Clock> clockInfos = new ArrayList<>();
     private ItemOnClickListener itemOnClickListener;
 
     public ClockRecyclerAdapter(ItemOnClickListener itemOnClickListener) {
@@ -76,7 +76,7 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
         return clockInfos.size();
     }
 
-    public void upDate(@NonNull List<ClockInfo> clockInfos) {
+    public void upDate(@NonNull List<Clock> clockInfos) {
         this.clockInfos.addAll(clockInfos);
         notifyDataSetChanged();
     }
