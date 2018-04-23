@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:gravity="center_vertical"
@@ -8,45 +8,59 @@
     android:layout_margin="5dp">
 
     <Button
+        android:id="@+id/clock_days_0"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="日"
+        android:textColor="@drawable/day_text_selector"
+        android:background="@drawable/day_selector" />
+
+    <Button
         android:id="@+id/clock_days_1"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/clock_button" />
+        android:text="一"
+        android:textColor="@drawable/day_text_selector"
+        android:background="@drawable/day_selector" />
 
     <Button
         android:id="@+id/clock_days_2"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/clock_button" />
+        android:text="二"
+        android:textColor="@drawable/day_text_selector"
+        android:background="@drawable/day_selector" />
 
     <Button
         android:id="@+id/clock_days_3"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/clock_button" />
+        android:text="三"
+        android:textColor="@drawable/day_text_selector"
+        android:background="@drawable/day_selector" />
 
     <Button
         android:id="@+id/clock_days_4"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/clock_button" />
+        android:text="四"
+        android:textColor="@drawable/day_text_selector"
+        android:background="@drawable/day_selector" />
 
     <Button
         android:id="@+id/clock_days_5"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/clock_button" />
+        android:text="五"
+        android:textColor="@drawable/day_text_selector"
+        android:background="@drawable/day_selector" />
 
     <Button
         android:id="@+id/clock_days_6"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/clock_button" />
-
-    <Button
-        android:id="@+id/clock_days_7"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/clock_button" />
+        android:text="六"
+        android:textColor="@drawable/day_text_selector"
+        android:background="@drawable/day_selector" />
 
 </LinearLayout>

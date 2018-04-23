@@ -1,5 +1,6 @@
 package com.example.nesthabit.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nesthabit.R;
+import com.example.nesthabit.activity.ClockSetActivity;
+import com.example.nesthabit.activity.HomeActivity;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.base.ItemOnClickListener;
 import com.example.nesthabit.presenter.ClockFraPresenter;
@@ -69,5 +72,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
 
     @OnClick(R.id.clock_float_button)
     public void onViewClicked() {
+        Intent intent = new Intent(getActivity(), ClockSetActivity.class);
+        startActivity(intent);
     }
 }

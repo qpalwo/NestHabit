@@ -1,20 +1,34 @@
 package com.example.nesthabit.activity;
 
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.example.nesthabit.R;
+import com.example.nesthabit.base.BaseActivity;
+import com.example.nesthabit.fragment.ClockSetView;
+import com.example.nesthabit.presenter.ClockSetPresenter;
 
-public class NestCreateActivity extends AppCompatActivity {
+public class ClockSetActivity extends BaseActivity implements ClockSetView {
+
+    private ClockSetPresenter clockSetPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nest_create);
+        setContentView(R.layout.activity_clock_set);
+        clockSetPresenter = new ClockSetPresenter();
+        clockSetPresenter.attachView(this);
         initView();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        clockSetPresenter.detachView();
     }
 
     private void initView() {
@@ -26,7 +40,8 @@ public class NestCreateActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.back);
             actionBar.setDisplayShowTitleEnabled(false);
             TextView toolbarTitle = findViewById(R.id.toolbar_title);
-            toolbarTitle.setText("创建鸟窝");
+            toolbarTitle.setText("添加闹钟");
+            toolbar.setBackgroundColor(Color.rgb(255,138,133));
         }
     }
 }
