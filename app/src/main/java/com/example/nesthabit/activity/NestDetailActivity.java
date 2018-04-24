@@ -1,11 +1,13 @@
 package com.example.nesthabit.activity;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.TextView;
@@ -28,7 +30,6 @@ public class NestDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            Log.d(TAG, "initView: actionbar");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.back);
             actionBar.setDisplayShowTitleEnabled(false);
@@ -42,5 +43,20 @@ public class NestDetailActivity extends AppCompatActivity {
         }
         TextView exitText = findViewById(R.id.detail_exit_text);
         exitText.setText("解散鸟窝");
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                FragmentManager fm = getSupportFragmentManager();
+                if (fm.getBackStackEntryCount() > 0) {
+                    fm.popBackStack();
+                } else {
+                    finish();
+                }
+                break;
+            default:
+        }
+        return true;
     }
 }

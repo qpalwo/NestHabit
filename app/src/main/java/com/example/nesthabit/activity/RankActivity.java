@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.nesthabit.R;
@@ -22,6 +23,7 @@ public class RankActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
+        initView();
     }
 
     private void initView() {
@@ -40,11 +42,22 @@ public class RankActivity extends BaseActivity {
         fragments.add(new RankFragment());
         fragments.add(new RankFragment());
         FragmentManager fragmentManager = getSupportFragmentManager();
-        NestContentPagerAdapter pagerAdapter = new NestContentPagerAdapter(fragmentManager, fragments);
+        NestContentPagerAdapter pagerAdapter = new NestContentPagerAdapter(fragmentManager,
+                fragments);
         ViewPager viewPager = findViewById(R.id.rank_pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(0);
         TabLayout tabLayout = findViewById(R.id.rank_tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+        }
+        return true;
     }
 }

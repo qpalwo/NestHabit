@@ -1,20 +1,29 @@
 package com.example.nesthabit.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseActivity;
+import com.example.nesthabit.fragment.ClockSetFragment;
 import com.example.nesthabit.fragment.ClockSetView;
 import com.example.nesthabit.presenter.ClockSetPresenter;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ClockSetActivity extends BaseActivity implements ClockSetView {
 
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private ClockSetPresenter clockSetPresenter;
 
     @Override
@@ -26,7 +35,6 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView {
         clockSetPresenter.attachView(this);
         initView();
     }
-
 
     @Override
     public void onDestroy() {
@@ -42,14 +50,27 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.back);
             actionBar.setDisplayShowTitleEnabled(false);
-            TextView toolbarTitle = findViewById(R.id.toolbar_title);
-            toolbarTitle.setText("添加闹钟");
             toolbar.setBackgroundColor(getResources().getColor(R.color.colorPink));
         }
+        ClockSetFragment clockSetFragment = new ClockSetFragment();
+        @SuppressLint("CommitTransaction") FragmentTransaction transaction =
+                getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.clock_set_fragment_container, clockSetFragment)
+                .commit();
     }
 
-    @OnClick(R.id.clock_set_sound_item)
-    public void onViewClicked() {
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                FragmentManager fm = getSupportFragmentManager();
+                if (fm.getBackStackEntryCount() > 0) {
+                    fm.popBackStack();
+                } else {
+                    finish();
+                }
+                break;
+            default:
+        }
+        return true;
     }
 }

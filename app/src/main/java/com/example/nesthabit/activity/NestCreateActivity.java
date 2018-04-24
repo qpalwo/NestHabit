@@ -1,12 +1,16 @@
 package com.example.nesthabit.activity;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.nesthabit.R;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class NestCreateActivity extends AppCompatActivity {
 
@@ -14,6 +18,7 @@ public class NestCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nest_create);
+        ButterKnife.bind(this);
         initView();
     }
 
@@ -28,5 +33,19 @@ public class NestCreateActivity extends AppCompatActivity {
             TextView toolbarTitle = findViewById(R.id.toolbar_title);
             toolbarTitle.setText("创建鸟窝");
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+        }
+        return true;
+    }
+
+    @OnClick(R.id.create_submit)
+    public void onViewClicked() {
     }
 }
