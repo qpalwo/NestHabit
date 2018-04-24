@@ -15,10 +15,6 @@ public class MyLeanCloudApp extends Application {
 
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"9NId15Lb59tpyQY3CcCwn2mJ-9Nh9j0Va","YUySEzcH4whFN4h7csvF4bXu");
-
-        AVObject.registerSubclass(Clock.class);
-        AVObject.registerSubclass(Nest.class);
-        AVObject.registerSubclass(Message.class);
         AVOSCloud.setDebugLogEnabled(true);
     }
 

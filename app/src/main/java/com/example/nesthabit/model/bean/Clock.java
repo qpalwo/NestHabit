@@ -7,143 +7,150 @@ import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
 import com.avos.avoscloud.AVUser;
+import com.example.nesthabit.model.DataUtil;
 
-@AVClassName("Clock")
-public class Clock extends AVObject {
-    public static final Parcelable.Creator CREATOR = AVObject.AVObjectCreator.instance;
+public class Clock {
+    public String id;
+    public String title;
+    public int isOpen;
+    public String slogan;
+    public String musicId;
+    public int durationLevel;
+    public int volumeLevel;
+    public int mapLevel;
+    public Nest nest;
+    public int willingMusic;
+    public int willingText;
+    public long createTime;
+    public AVUser owner;
+    public int timeHour;
+    public int timeMin;
 
-
-    public static final String TITLE = "title";
-    public static final String ISOPEN = "isopen";  //0 false 1 true
-    public static final String SLOGAN = "slogan";
-    public static final String MUSIC_ID = "muscic_id";
-    public static final String DURATION_LEVEL = "duration_level";
-    public static final String VOLUME_LEVEL = "volume_level";
-    public static final String NAP_LEVEL = "nap_level";
-    public static final String NEST = "nest";
-    public static final String WILLING_MUSIC = "willing_music";  //0 false 1 true
-    public static final String WILLING_TEXT = "willing_text";   //0 false 1 true
-    public static final String CREATED_TIME = "created_time";
-    public static final String OWNER = "owner";
-    public static final String TIME_HOUR = "time_hour";
-    public static final String TIME_MIN = "time_min";
-
-    public Clock(){
-
+    public String getId() {
+        return id;
     }
 
-
-    public void setTitle(String data) {
-        put(TITLE, data);
+    public void setId(String id){
+        this.id = id;
     }
 
-    public void setIsopen(int data) {
-        put(ISOPEN, data);
+    public void setId() {
+        this.id = DataUtil.getUnixStamp() + "";
     }
 
-    public void setSlogan(String data) {
-        put(SLOGAN, data);
+    public String getTitle() {
+        return title;
     }
 
-    public void setMusicId(String data) {
-        put(MUSIC_ID, data);
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setDurationLevel(int data) {
-        put(DURATION_LEVEL, data);
+    public int getIsOpen() {
+        return isOpen;
     }
 
-    public void setVolumeLevel(int data) {
-        put(VOLUME_LEVEL, data);
+    public void setIsOpen(int isOpen) {
+        this.isOpen = isOpen;
     }
 
-    public void setNapLevel(int data) {
-        put(NAP_LEVEL, data);
+    public String getSlogan() {
+        return slogan;
     }
 
-    public void setNest(Nest data) {
-        put(NEST, data);
-    }
-
-    public void setWillingMusic(int data) {
-        put(WILLING_MUSIC, data);
-    }
-
-    public void setWillingText(int data) {
-        put(WILLING_TEXT, data);
-    }
-
-    public void setCreatedTime(long data) {
-        put(CREATED_TIME, data);
-    }
-
-    public void setOwner(AVUser data) {
-        put(OWNER, data);
-    }
-
-    public void setTimeHour(int data) {
-        put(TIME_HOUR, data);
-    }
-
-    public void setTimeMin(int data) {
-        put(TIME_MIN, data);
-    }
-
-
-    public String getTITLE() {
-        return getString(TITLE);
-    }
-
-    public int getISONEN() {
-        return getInt(ISOPEN);
-    }
-
-    public String getSLOGAN() {
-        return getString(SLOGAN);
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
 
     public String getMusicId() {
-        return getString(MUSIC_ID);
+        return musicId;
+    }
+
+    public void setMusicId(String musicId) {
+        this.musicId = musicId;
     }
 
     public int getDurationLevel() {
-        return getInt(DURATION_LEVEL);
+        return durationLevel;
+    }
+
+    public void setDurationLevel(int durationLevel) {
+        this.durationLevel = durationLevel;
     }
 
     public int getVolumeLevel() {
-        return getInt(VOLUME_LEVEL);
+        return volumeLevel;
     }
 
-    public int getNapLevel() {
-        return getInt(NAP_LEVEL);
+    public void setVolumeLevel(int volumeLevel) {
+        this.volumeLevel = volumeLevel;
     }
 
-    public Nest getNEST() {
-        return getAVObject(NEST);
+    public int getMapLevel() {
+        return mapLevel;
+    }
+
+    public void setNapLevel(int mapLevel) {
+        this.mapLevel = mapLevel;
+    }
+
+    public Nest getNest() {
+        return nest;
+    }
+
+    public void setNest(Nest nest) {
+        this.nest = nest;
     }
 
     public int getWillingMusic() {
-        return getInt(WILLING_MUSIC);
+        return willingMusic;
+    }
+
+    public void setWillingMusic(int willingMusic) {
+        this.willingMusic = willingMusic;
     }
 
     public int getWillingText() {
-        return getInt(WILLING_TEXT);
+        return willingText;
     }
 
-    public long getCreatedTime() {
-        return getLong(CREATED_TIME);
+    public void setWillingText(int willingText) {
+        this.willingText = willingText;
     }
 
-    public AVUser getOWNER() {
-        return getAVUser(OWNER);
+    public long getCreateTime() {
+        return createTime;
     }
 
-    public int getTIME_HOUR() {
-        return getInt(TIME_HOUR);
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
     }
 
-    public int getTIME_MIN() {
-        return getInt(TIME_MIN);
+    public AVUser getOwner() {
+        return owner;
     }
+
+    public void setOwner(AVUser owner) {
+        this.owner = owner;
+    }
+
+    public int getTimeHour() {
+        return timeHour;
+    }
+
+    public void setTimeHour(int timeHour) {
+        this.timeHour = timeHour;
+    }
+
+    public int getTimeMin() {
+        return timeMin;
+    }
+
+    public void setTimeMin(int timeMin) {
+        this.timeMin = timeMin;
+    }
+
+
+
 
 }

@@ -5,131 +5,150 @@ import android.os.Parcelable;
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
+import com.example.nesthabit.model.DataUtil;
 
 import java.util.List;
 import java.util.Observable;
 
-@AVClassName("Nest")
-public class Nest extends AVObject {
-    public static final Parcelable.Creator CREATOR = AVObject.AVObjectCreator.instance;
 
-    public static final String NAME = "name";
-    public static final String DESC = "desc";
-    public static final String MEMBERS_LIMIT = "members_list";
-    public static final String START_TIME = "start_time";
-    public static final String CHALLENGE_DAYS = "challenge_days";
-    public static final String COVER_IMAGE = "cover_image";
-    public static final String OPEN = "open";
-    public static final String CREATED_TIME= "created_time";
-    public static final String CREATOR1= "creator";
-    public static final String OWNER= "owner";
-    public static final String MEMBER_AMOUNT= "members_amount";
-    public static final String MEMBERS= "members";
-    public static final String SIGNMSGS= "signmsgs";
-    public static final String COMMUMSGS= "commumsgs";
+public class Nest {
+    public String id;
+    public String name;
+    public String desc;
+    public int membersLimit;
+    public long startTime;
+    public int challengeDays;
+    public String coverImage;
+    public int isOpen;
+    public long createdTime;
+    public AVUser creator;
+    public AVUser owner;
+    public int memberAmount;
+    public List<AVUser> members;
+    public List<Message> signmsgs;
+    public List<Message> commumsgs;
 
-    public Nest(){
-
+    public String getId() {
+        return id;
     }
 
-
-
-    public void setName(String data) {
-        put(NAME, data);
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setDesc(String data) {
-        put(DESC, data);
-    }
-    public void setMembersLimit(int data) {
-        put(MEMBERS_LIMIT, data);
-    }
-    public void setStartTime(long data) {
-        put(START_TIME, data);
+    public void setId() {
+        this.id = DataUtil.getUnixStamp() + "";
     }
 
-    public void setChallengeDays(int data) {
-        put(CHALLENGE_DAYS, data);
-    }
-    public void setCoverImage(String data) {
-        put(COVER_IMAGE, data);
+    public String getName() {
+        return name;
     }
 
-    public void setOpen(int data) {
-        put(OPEN, data);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCreator(AVUser data) {
-        put(CREATOR1, data);
+    public String getDesc() {
+        return desc;
     }
 
-    public void setCreatedTime(long data) {
-        put(CREATED_TIME, data);
-    }
-
-    public void setOwner(AVUser data) {
-        put(OWNER, data);
-    }
-
-    public void setMemberAmount(int data) {
-        put(MEMBER_AMOUNT, data);
-    }
-
-
-    public List<Message> getSingMsgs(){
-        return getList(SIGNMSGS, Message.class);
-    }
-
-    public List<Message> getCommuMsgs(){
-        return getList(COMMUMSGS, Message.class);
-    }
-
-    public List<AVUser> getMembers(){
-        return getList(MEMBERS, AVUser.class);
-    }
-
-    public String getNAME() {
-        return getString(NAME);
-    }
-
-    public String getDESC() {
-        return getString(DESC);
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public int getMembersLimit() {
-        return getInt(MEMBERS_LIMIT);
+        return membersLimit;
+    }
+
+    public void setMembersLimit(int membersLimit) {
+        this.membersLimit = membersLimit;
     }
 
     public long getStartTime() {
-        return getLong(START_TIME);
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 
     public int getChallengeDays() {
-        return getInt(CHALLENGE_DAYS);
+        return challengeDays;
+    }
+
+    public void setChallengeDays(int challengeDays) {
+        this.challengeDays = challengeDays;
     }
 
     public String getCoverImage() {
-        return getString(COVER_IMAGE);
+        return coverImage;
     }
 
-    public int getOPEN() {
-        return getInt(OPEN);
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
+    public int getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(int isOpen) {
+        this.isOpen = isOpen;
     }
 
     public long getCreatedTime() {
-        return getLong(CREATED_TIME);
+        return createdTime;
     }
 
-    public AVUser getCREATOR1() {
-        return getAVUser(getString(CREATOR1));
+    public void setCreatedTime(long createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public AVUser getOWNER() {
-        return getAVUser(getString(OWNER));
+    public AVUser getCreator() {
+        return creator;
+    }
+
+    public void setCreator(AVUser creator) {
+        this.creator = creator;
+    }
+
+    public AVUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AVUser owner) {
+        this.owner = owner;
     }
 
     public int getMemberAmount() {
-        return getInt(MEMBER_AMOUNT);
+        return memberAmount;
     }
 
+    public void setMemberAmount(int memberAmount) {
+        this.memberAmount = memberAmount;
+    }
+
+    public List<AVUser> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<AVUser> members) {
+        this.members = members;
+    }
+
+    public List<Message> getSignmsgs() {
+        return signmsgs;
+    }
+
+    public void setSignmsgs(List<Message> signmsgs) {
+        this.signmsgs = signmsgs;
+    }
+
+    public List<Message> getCommumsgs() {
+        return commumsgs;
+    }
+
+    public void setCommumsgs(List<Message> commumsgs) {
+        this.commumsgs = commumsgs;
+    }
 }

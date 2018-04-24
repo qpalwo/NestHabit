@@ -4,17 +4,16 @@ import android.os.Parcelable;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
 
-@AVClassName("Message")
-public class Message extends AVObject {
-    public static final Parcelable.Creator CREATOR = AVObject.AVObjectCreator.instance;
 
-    public static final String TIME = "time";
-    public static final String USER = "user";
-    public static final String CONTENT = "content";
-    public static final String TYPE= "type";
+public class Message{
 
-    public Message(){
+    public static final int SIGN = 0;
+    public static final int COMMO = 1;
 
-    }
+    public long time;
+    public AVUser user;
+    public String content;
+    public int type;
 }
