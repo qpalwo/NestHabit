@@ -48,10 +48,4 @@ public class ClockSoundSetFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    private void setToolbarTitle(String title) {
-        TextView toolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id
-                .toolbar_title);
-        toolbarTitle.setText(title);
-    }
-
 }

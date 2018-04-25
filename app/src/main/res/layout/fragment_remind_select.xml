@@ -8,38 +8,38 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_margin="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="12dp"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/remind_select_friend_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="12dp"
-                    android:text="语音提醒"
+                    android:layout_margin="8dp"
+                    android:text="选择对象"
                     android:textColor="@color/colorTextDark"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/restart_record"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
-                    android:text="重新录制"
-                    android:textColor="@color/colorTextGrey"
-                    android:textSize="14sp" />
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/next" />
             </RelativeLayout>
 
             <View
@@ -49,47 +49,34 @@
                 android:layout_marginStart="8dp"
                 android:background="#CCCCCC" />
 
-            <RelativeLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/selected_friend_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/tape_button"
-                    android:layout_width="104dp"
-                    android:layout_height="104dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/tape" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tape_button"
-                    android:layout_centerHorizontal="true"
-                    android:text="长按录制"
-                    android:textColor="@color/colorTextGrey"
-                    android:textSize="14sp" />
-            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:layout_margin="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="12dp"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="12dp"
-                android:text="文字提醒"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="选择时间"
                 android:textColor="@color/colorTextDark"
                 android:textSize="16sp" />
 
@@ -100,26 +87,25 @@
                 android:layout_marginStart="8dp"
                 android:background="#CCCCCC" />
 
-            <EditText
-                android:id="@+id/text_remind_content"
+            <DatePicker
+                android:id="@+id/date_picker"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:background="@null"
-                android:hint="输入内容不超过50字"
-                android:textColor="@color/colorTextGrey"
-                android:textSize="14sp" />
+                android:calendarViewShown="true"
+                android:spinnersShown="false"
+                android:startYear="2018" />
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
     <Button
-        android:id="@+id/remind_finish"
+        android:id="@+id/remind_next_step"
         android:layout_width="180dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/button_yellow"
-        android:text="完成"
+        android:text="下一步"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
 </LinearLayout>

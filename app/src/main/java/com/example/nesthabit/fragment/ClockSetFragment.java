@@ -1,6 +1,5 @@
 package com.example.nesthabit.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -52,13 +51,6 @@ public class ClockSetFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    private void setToolbarTitle(String title) {
-        TextView toolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id
-                .toolbar_title);
-        toolbarTitle.setText(title);
-    }
-
-    @SuppressLint("ResourceType")
     @OnClick(R.id.clock_set_sound_item)
     public void onViewClicked() {
         ClockSoundSetFragment soundSetFragment = new ClockSoundSetFragment();

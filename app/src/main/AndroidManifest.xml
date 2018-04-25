@@ -53,7 +53,8 @@
             android:name=".activity.NestDetailActivity"
             android:exported="true" />
         <activity android:name=".activity.ClockRemindActivity" />
-        <activity android:name=".activity.NestCreateActivity"></activity>
+        <activity android:name=".activity.NestCreateActivity" />
+        <activity android:name=".activity.RemindFriendActivity"></activity>
     </application>
 
 </manifest>

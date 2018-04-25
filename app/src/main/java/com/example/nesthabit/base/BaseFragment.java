@@ -8,6 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.nesthabit.R;
+
+import java.util.Objects;
 
 /**
  * Created by 肖宇轩 on 2018/3/3.
@@ -67,4 +72,11 @@ public abstract class BaseFragment extends Fragment implements BaseView, HandleB
             super("Fragment has disconnected from Activity !");
         }
     }
+
+    protected void setToolbarTitle(String title) {
+        TextView toolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id
+                .toolbar_title);
+        toolbarTitle.setText(title);
+    }
+
 }

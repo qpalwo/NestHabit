@@ -22,6 +22,7 @@ import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.fragment.ClockFragment;
 import com.example.nesthabit.fragment.NestFragment;
 import com.example.nesthabit.presenter.HomePresenter;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,8 @@ public class HomeActivity extends BaseActivity implements HomeView {
     ImageButton homeBottomNestImg;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.toolbar_user_avatar)
+    RoundedImageView toolbarUserAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +77,11 @@ public class HomeActivity extends BaseActivity implements HomeView {
         setSupportActionBar(homeToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setHomeAsUpIndicator(R.drawable.someone);
         }
         toolbarTitle.setText("闹钟");
+        toolbarUserAvatar.setVisibility(View.VISIBLE);
     }
 
     private void initPager() {
@@ -146,13 +149,8 @@ public class HomeActivity extends BaseActivity implements HomeView {
         }
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                break;
-            default:
-        }
-        return true;
+    @OnClick(R.id.toolbar_user_avatar)
+    public void onViewClicked() {
+        drawerLayout.openDrawer(GravityCompat.START);
     }
 }
