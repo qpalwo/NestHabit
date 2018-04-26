@@ -5,9 +5,12 @@ import android.content.Context;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetCallback;
 import com.example.nesthabit.base.CallBack;
+import com.example.nesthabit.base.MyLeanCloudApp;
 import com.example.nesthabit.model.bean.Clock;
+import com.example.nesthabit.model.bean.Nest;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -28,27 +31,40 @@ public class ClockHelper {
     public static final String WILLING_MUSIC = "willing_music";  //0 false 1 true
     public static final String WILLING_TEXT = "willing_text";   //0 false 1 true
     public static final String CREATED_TIME = "created_time";
-    public static final String OWNER = "owner";
+    public static final String OWNER_NAME = "owner_name";
     public static final String TIME_HOUR = "time_hour";
     public static final String TIME_MIN = "time_min";
     public static final String CLOCK_ID = "clock_id";
 
 
-    public void createClockOnNet(Clock clock, Context context) {
+    public void createClockOnNet(Clock clock) {
         AVObject clock_obj = new AVObject("Clock");
         clock_obj.put(TITLE, clock.getTitle());
-        // TODO: 2018/4/24 添加其它数据
+        clock_obj.put(ISOPEN, clock.getIsOpen());
+        clock_obj.put(SLOGAN, clock.getSlogan());
+        clock_obj.put(MUSIC_ID, clock.getMusicId());
+        clock_obj.put(DURATION_LEVEL, clock.getDurationLevel());
+        clock_obj.put(VOLUME_LEVEL, clock.getVolumeLevel());
+        clock_obj.put(NAP_LEVEL, clock.getNapLevel());
+        clock_obj.put(NEST, clock.getNest());
+        clock_obj.put(WILLING_MUSIC, clock.getWillingMusic());
+        clock_obj.put(WILLING_TEXT, clock.getWillingText());
+        clock_obj.put(CREATED_TIME, clock.getCreateTime());
+        clock_obj.put(TIME_HOUR, clock.getTimeHour());
+        clock_obj.put(TIME_MIN, clock.getTimeMin());
+        clock_obj.put(CLOCK_ID, clock.getId());
+        clock_obj.put(OWNER_NAME, clock.getOwner());
         clock_obj.saveInBackground();
-        saveToCache(clock, context);
+        saveToCache(clock);
     }
 
-    private void saveToCache(final Clock clock, final Context context) {
+    private void saveToCache(final Clock clock) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ACache aCache = ACache.get(context, ACache.CACHE_NAME);
+                ACache aCache = ACache.get(MyLeanCloudApp.getContext(), ACache.CACHE_NAME);
                 Gson gson = new Gson();
-                aCache.put(clock.getId(), gson.toJson(clock, Clock.class));
+                aCache.put(clock.getId(), gson.toJson(clock, Clock.class), ACache.TIME_DAY);
             }
         }).start();
     }
@@ -77,7 +93,7 @@ public class ClockHelper {
                 public void onComplete() {
                     countDownLatch.countDown();
                 }
-            }, context);
+            });
         }
         try {
             countDownLatch.await();
@@ -88,8 +104,8 @@ public class ClockHelper {
         callBack.onComplete();
     }
 
-    public void getClock(String clockId, final CallBack<Clock> callBack, Context context) {
-        Clock clock = getFromCache(clockId, context);
+    public void getClock(String clockId, final CallBack<Clock> callBack) {
+        Clock clock = getFromCache(clockId);
         if (clock == null) {
             getFromNet(clockId, new CallBack<Clock>() {
                 @Override
@@ -119,8 +135,8 @@ public class ClockHelper {
 
     }
 
-    private Clock getFromCache(String id, Context context) {
-        ACache aCache = ACache.get(context, ACache.CACHE_NAME);
+    private Clock getFromCache(String id) {
+        ACache aCache = ACache.get(MyLeanCloudApp.getContext(), ACache.CACHE_NAME);
         Clock clock = (Clock) aCache.getAsObject(id);
         if (clock != null) {
             return clock;
@@ -149,11 +165,17 @@ public class ClockHelper {
                 clock.setNapLevel(avObject.getInt(NAP_LEVEL));
                 clock.setIsOpen(avObject.getInt(ISOPEN));
                 clock.setId(avObject.getString(CLOCK_ID));
-                // TODO: 2018/4/24 nest and owner do not set
+                clock.setOwner(avObject.getString(OWNER_NAME));
+                try {
+                    clock.setNest(avObject.getAVObject(NEST, Nest.class));
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 callBack.onSuccess(clock);
                 callBack.onComplete();
             }
         });
+
     }
 
 

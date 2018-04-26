@@ -1,15 +1,11 @@
 package com.example.nesthabit.model.bean;
 
 
-import android.os.Parcelable;
-
-import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
-
 import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.model.DataUtil;
 
-public class Clock {
+public class Clock extends AVObject{
     public String id;
     public String title;
     public int isOpen;
@@ -17,12 +13,12 @@ public class Clock {
     public String musicId;
     public int durationLevel;
     public int volumeLevel;
-    public int mapLevel;
+    public int napLevel;
     public Nest nest;
     public int willingMusic;
     public int willingText;
     public long createTime;
-    public AVUser owner;
+    public String ownerName;
     public int timeHour;
     public int timeMin;
 
@@ -86,12 +82,12 @@ public class Clock {
         this.volumeLevel = volumeLevel;
     }
 
-    public int getMapLevel() {
-        return mapLevel;
+    public int getNapLevel() {
+        return napLevel;
     }
 
     public void setNapLevel(int mapLevel) {
-        this.mapLevel = mapLevel;
+        this.napLevel = mapLevel;
     }
 
     public Nest getNest() {
@@ -126,12 +122,12 @@ public class Clock {
         this.createTime = createTime;
     }
 
-    public AVUser getOwner() {
-        return owner;
+    public String getOwner() {
+        return ownerName;
     }
 
-    public void setOwner(AVUser owner) {
-        this.owner = owner;
+    public void setOwner(String owner) {
+        this.ownerName = owner;
     }
 
     public int getTimeHour() {

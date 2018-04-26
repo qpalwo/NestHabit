@@ -8,6 +8,7 @@
     tools:context=".activity.ClockRemindActivity">
 
     <TextView
+        android:id="@+id/clock_remind_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -18,6 +19,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/clock_remind_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

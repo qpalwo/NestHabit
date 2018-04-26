@@ -8,11 +8,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.nesthabit.R;
+import com.example.nesthabit.base.BaseActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NestCreateActivity extends AppCompatActivity {
+public class NestCreateActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

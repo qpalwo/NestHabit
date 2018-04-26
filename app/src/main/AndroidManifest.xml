@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!-- 基础模块 END -->
     <application
@@ -53,6 +54,16 @@
             android:name=".activity.NestDetailActivity"
             android:exported="true" />
         <activity android:name=".activity.ClockRemindActivity" />
+        <activity android:name=".activity.NestCreateActivity" />
+
+        <receiver
+            android:name=".broadcast.ClockRemindReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="unique.NestHabit.action.CLOCK_REMIND"/>
+            </intent-filter>
+        </receiver>
         <activity android:name=".activity.NestCreateActivity" />
         <activity android:name=".activity.RemindFriendActivity"></activity>
     </application>

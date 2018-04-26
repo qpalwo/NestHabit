@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Observable;
 
 
-public class Nest {
+public class Nest extends AVObject{
     public String id;
     public String name;
     public String desc;
@@ -21,8 +21,8 @@ public class Nest {
     public String coverImage;
     public int isOpen;
     public long createdTime;
-    public AVUser creator;
-    public AVUser owner;
+    public String creatorName;
+    public String ownerName;
     public int memberAmount;
     public List<AVUser> members;
     public List<Message> signmsgs;
@@ -104,20 +104,20 @@ public class Nest {
         this.createdTime = createdTime;
     }
 
-    public AVUser getCreator() {
-        return creator;
+    public String getCreator() {
+        return creatorName;
     }
 
-    public void setCreator(AVUser creator) {
-        this.creator = creator;
+    public void setCreator(String creator) {
+        this.creatorName = creator;
     }
 
-    public AVUser getOwner() {
-        return owner;
+    public String getOwner() {
+        return ownerName;
     }
 
-    public void setOwner(AVUser owner) {
-        this.owner = owner;
+    public void setOwner(String owner) {
+        this.ownerName = owner;
     }
 
     public int getMemberAmount() {
