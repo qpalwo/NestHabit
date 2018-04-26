@@ -66,6 +66,21 @@
         </receiver>
 
         <activity android:name=".activity.RemindFriendActivity"></activity>
+        <activity android:name=".activity.NestCreateActivity" />
+
+        <receiver
+            android:name=".broadcast.ClockRemindReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="unique.NestHabit.action.CLOCK_REMIND"/>
+            </intent-filter>
+        </receiver>
+        <activity android:name=".activity.NestCreateActivity" />
+        <activity android:name=".activity.RemindFriendActivity"></activity>
+        <activity android:name=".activity.NestCreateActivity" />
+        <activity android:name=".activity.RemindFriendActivity"></activity>
+        <activity android:name=".activity.NestCreateActivity"></activity>
     </application>
 
 </manifest>

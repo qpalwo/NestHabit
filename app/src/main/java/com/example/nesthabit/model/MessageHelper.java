@@ -1,5 +1,9 @@
 package com.example.nesthabit.model;
 
-public class MessageHelper {
+import com.example.nesthabit.model.bean.Message;
 
+public class MessageHelper {
+    public void onCreated(Message message){
+
+    }
 }
