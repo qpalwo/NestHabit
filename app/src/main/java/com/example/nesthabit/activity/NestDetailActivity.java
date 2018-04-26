@@ -14,13 +14,14 @@ import android.view.ViewStub;
 import android.widget.TextView;
 
 import com.example.nesthabit.R;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.NestDetailFragment;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class NestDetailActivity extends BaseActivity {
+
+
 
     private static final String TAG = "NestDetailActivity";
 
