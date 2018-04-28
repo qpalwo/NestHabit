@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.nesthabit.R;
 import com.tencent.plus.DensityUtil;
@@ -21,7 +22,8 @@ public class DeleteDialog extends Dialog {
     private int width;
     private boolean cancelTouchOut;
     private View view;
-    private CancelListener cancelListener;
+    private String text;
+    private DialogClickListener dialogClickListener;
 
     private DeleteDialog(Builder builder) {
         super(builder.context);
@@ -30,7 +32,19 @@ public class DeleteDialog extends Dialog {
         width = builder.width;
         cancelTouchOut = builder.cancelTouchOut;
         view = builder.view;
-        cancelListener = builder.cancelListener;
+        text = builder.text;
+        dialogClickListener = builder.dialogClickListener;
+    }
+
+    private DeleteDialog(Builder builder, int resStyle) {
+        super(builder.context, resStyle);
+        context = builder.context;
+        height = builder.height;
+        width = builder.width;
+        cancelTouchOut = builder.cancelTouchOut;
+        view = builder.view;
+        text = builder.text;
+        dialogClickListener = builder.dialogClickListener;
     }
 
     @Override
@@ -47,26 +61,30 @@ public class DeleteDialog extends Dialog {
             lp.width = width;
             window.setAttributes(lp);
         }
-        view.findViewById(R.id.delete_dialog_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancelListener.onCancelClicked();
-                dismiss();
-            }
-        });
+        TextView textDelete = view.findViewById(R.id.dialog_delete_text);
+        textDelete.setText(text);
+
+        if (dialogClickListener != null) {
+            view.findViewById(R.id.delete_dialog_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogClickListener.onCancelClicked();
+                    dismiss();
+                }
+            });
+            view.findViewById(R.id.delete_dialog_ensure).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogClickListener.onDeleteClicked();
+                    dismiss();
+                }
+            });
+        }
     }
 
-    private DeleteDialog(Builder builder, int resStyle) {
-        super(builder.context, resStyle);
-        context = builder.context;
-        height = builder.height;
-        width = builder.width;
-        cancelTouchOut = builder.cancelTouchOut;
-        view = builder.view;
-    }
-
-    public interface CancelListener {
+    public interface DialogClickListener {
         public void onCancelClicked();
+        public void onDeleteClicked();
     }
 
     public static final class Builder {
@@ -75,8 +93,9 @@ public class DeleteDialog extends Dialog {
         private int width;
         private boolean cancelTouchOut;
         private View view;
+        private String text;
         private int resStyle = -1;
-        private CancelListener cancelListener;
+        private DialogClickListener dialogClickListener;
 
 
         public Builder(Context context) {
@@ -113,13 +132,18 @@ public class DeleteDialog extends Dialog {
             return this;
         }
 
+        public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
+
         public Builder style(int resStyle) {
             this.resStyle = resStyle;
             return this;
         }
 
-        public Builder setCancelListener(CancelListener listener) {
-            this.cancelListener = listener;
+        public Builder setDialogClickListener(DialogClickListener listener) {
+            this.dialogClickListener = listener;
             return this;
         }
 

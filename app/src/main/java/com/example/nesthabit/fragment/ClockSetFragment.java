@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.nesthabit.R;
@@ -12,6 +13,7 @@ import com.example.nesthabit.base.BaseFragment;
 
 import java.util.Objects;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -21,8 +23,13 @@ import butterknife.Unbinder;
  */
 public class ClockSetFragment extends BaseFragment {
 
-    Unbinder unbinder;
 
+    @BindView(R.id.clock_set_volume_seekbar)
+    SeekBar clockSetVolumeSeekbar;
+    @BindView(R.id.clock_set_volume_text)
+    TextView clockSetVolumeText;
+
+    Unbinder unbinder;
 
     @Override
     public int getContentViewId() {
@@ -49,6 +56,21 @@ public class ClockSetFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private void initView() {
+        clockSetVolumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                clockSetVolumeText.setText(String.valueOf(progress) + "%");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
     }
 
     @OnClick(R.id.clock_set_sound_item)
