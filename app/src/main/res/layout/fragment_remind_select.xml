@@ -93,6 +93,7 @@
                 android:layout_height="match_parent"
                 android:calendarViewShown="true"
                 android:spinnersShown="false"
+                android:layout_gravity="center"
                 android:startYear="2018" />
 
         </LinearLayout>

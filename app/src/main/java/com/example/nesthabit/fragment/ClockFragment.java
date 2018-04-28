@@ -3,11 +3,14 @@ package com.example.nesthabit.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.nesthabit.R;
 import com.example.nesthabit.activity.ClockSetActivity;
@@ -16,6 +19,9 @@ import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.base.ItemOnClickListener;
 import com.example.nesthabit.presenter.ClockFraPresenter;
 import com.example.nesthabit.adapter.ClockRecyclerAdapter;
+import com.example.nesthabit.widget.DeleteDialog;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,13 +42,20 @@ public class ClockFragment extends BaseFragment implements ClockView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         clockFraPresenter = new ClockFraPresenter();
         clockFraPresenter.attachView(this);
         initRecycler();
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showDeleteDialog();
     }
 
     private void initRecycler() {
@@ -74,5 +87,16 @@ public class ClockFragment extends BaseFragment implements ClockView {
     public void onViewClicked() {
         Intent intent = new Intent(getActivity(), ClockSetActivity.class);
         startActivity(intent);
+    }
+
+    private void showDeleteDialog() {
+        final DeleteDialog dialog = new DeleteDialog.Builder(getActivity())
+                .heightDp(175)
+                .widthDp(270)
+                .style(R.style.Dialog)
+                .cancelTouchOut(false)
+                .view(R.layout.dialog_delete)
+                .build();
+        dialog.show();
     }
 }
