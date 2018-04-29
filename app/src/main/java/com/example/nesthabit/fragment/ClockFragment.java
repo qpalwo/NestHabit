@@ -50,8 +50,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         clockFraPresenter = new ClockFraPresenter();
@@ -68,10 +67,9 @@ public class ClockFragment extends BaseFragment implements ClockView {
 
     private void getClocks() {
         UserHelper helper = new UserHelper();
-        helper.getClock(AVUser.getCurrentUser(), new CallBack<List<Clock>>() {
+        helper.getClock(AVUser.getCurrentUser(), new CallBack<List<String>>() {
             @Override
-            public void onSuccess(List<Clock> data) {
-                clockList = data;
+            public void onSuccess(List<String> data) {
             }
 
             @Override

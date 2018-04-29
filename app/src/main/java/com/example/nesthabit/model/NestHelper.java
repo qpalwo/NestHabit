@@ -35,6 +35,7 @@ public class NestHelper {
     public static final String COMMUMSGS= "commumsgs";
 
     public void createNestOnNet(Nest nest){
+        UserHelper userHelper = new UserHelper();
         AVObject nest_obj = new AVObject("Nest");
         nest_obj.put(NEST_ID, nest.getId());
         nest_obj.put(NAME, nest.getName());
@@ -51,10 +52,9 @@ public class NestHelper {
         nest_obj.put(MEMBERS, nest.getMembers());
         nest_obj.put(SIGNMSGS, nest.getSignmsgs());
         nest_obj.put(COMMUMSGS, nest.getCommumsgs());
-
         nest_obj.saveInBackground();
         saveToCache(nest);
-
+        userHelper.addNest(nest);
     }
 
     public void getNests(List<String> nestId, CallBack<List<Nest>> callBack){
@@ -130,7 +130,7 @@ public class NestHelper {
             public void run() {
                 ACache aCache = ACache.get(MyLeanCloudApp.getContext(), ACache.CACHE_NAME);
                 Gson gson = new Gson();
-                aCache.put(nest.getId(), gson.toJson(nest, Clock.class), ACache.TIME_DAY);
+                aCache.put(nest.getId(), gson.toJson(nest, Nest.class), ACache.TIME_DAY);
             }
         }).start();
     }

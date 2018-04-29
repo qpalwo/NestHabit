@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cp="http://schemas.android.com/apk/res-auto"
     android:layout_width="158dp"
-    android:layout_height="200dp">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -50,14 +51,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ProgressBar
-                    style="@android:style/Widget.ProgressBar.Horizontal"
+
+                <com.example.nesthabit.widget.ProgressBar
+                    android:id="@+id/nest_item_progress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:indeterminateTint="@color/colorPink"
-                    android:indeterminateTintMode="src_atop" />
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="5dp"
+                    cp:backCircleColor="#B0BEC5"
+                    cp:currentProgress="50"
+                    cp:foreCircleColor="@color/colorPink" />
+
 
                 <TextView
                     style="@style/progressBarHorizontal"
@@ -75,18 +79,21 @@
                 android:layout_marginTop="5dp">
 
                 <ImageView
+                    android:id="@+id/nest_item_user__img1"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/someone" />
 
                 <ImageView
+                    android:id="@+id/nest_item_user__img2"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginStart="25dp"
                     android:src="@drawable/someone_2" />
 
                 <ImageView
+                    android:id="@+id/nest_item_user__img3"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginStart="40dp"

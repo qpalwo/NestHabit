@@ -43,6 +43,7 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView {
     }
 
     private void initView() {
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -50,7 +51,7 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.back);
             actionBar.setDisplayShowTitleEnabled(false);
-            toolbar.setBackgroundColor(getResources().getColor(R.color.colorPink));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.colorPink, null));
         }
         ClockSetFragment clockSetFragment = new ClockSetFragment();
         @SuppressLint("CommitTransaction") FragmentTransaction transaction =

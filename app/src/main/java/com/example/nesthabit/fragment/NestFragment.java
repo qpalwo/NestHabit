@@ -3,6 +3,7 @@ package com.example.nesthabit.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,14 @@ import android.view.ViewGroup;
 
 import com.example.nesthabit.R;
 import com.example.nesthabit.activity.NestCreateActivity;
+import com.example.nesthabit.adapter.NestContentRecyclerAdapter;
 import com.example.nesthabit.base.BaseFragment;
+import com.example.nesthabit.base.BaseView;
+import com.example.nesthabit.base.ItemOnClickListener;
+import com.example.nesthabit.model.bean.Nest;
+import com.example.nesthabit.presenter.NestFraPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,11 +28,12 @@ import butterknife.Unbinder;
 /**
  * Created by dizzylay on 2018/4/21.
  */
-public class NestFragment extends BaseFragment {
+public class NestFragment extends BaseFragment implements NestView {
     @BindView(R.id.nest_recycler_view)
     RecyclerView nestRecyclerView;
     @BindView(R.id.nest_float_button)
     FloatingActionButton nestFloatButton;
+    NestFraPresenter nestFraPresenter;
     Unbinder unbinder;
 
     @Override
@@ -38,6 +47,19 @@ public class NestFragment extends BaseFragment {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
+        nestFraPresenter = new NestFraPresenter();
+        nestFraPresenter.attachView(this);
+        NestContentRecyclerAdapter adapter = new NestContentRecyclerAdapter(new ItemOnClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+        });
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
+        nestRecyclerView.setLayoutManager(manager);
+        nestRecyclerView.setAdapter(adapter);
+//        nestFraPresenter.setData();
+
         return rootView;
     }
 
@@ -51,5 +73,17 @@ public class NestFragment extends BaseFragment {
     public void onViewClicked() {
         Intent intent = new Intent(getActivity(), NestCreateActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void setNestRecyclerData(List<Nest> list) {
+        NestContentRecyclerAdapter adapter = (NestContentRecyclerAdapter) nestRecyclerView.getAdapter();
+        adapter.changeData(list);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        nestFraPresenter.detachView();
     }
 }

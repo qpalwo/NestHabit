@@ -15,7 +15,7 @@ import com.example.nesthabit.R;
 /**
  * Created by dizzylay on 2018/4/28.
  */
-public class CircleProgressBar extends View {
+public class ProgressBar extends View {
 
     private Paint backCirclePaint;
     private int backCircleColor;
@@ -23,21 +23,23 @@ public class CircleProgressBar extends View {
     private int foreCircleColor;
     private float radius;
     private float width;
-    private int currentProgress;
+    private float currentProgress;
+    private int type;
 
-    public CircleProgressBar(Context context, @Nullable AttributeSet attrs) {
+    public ProgressBar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initAttrs(context, attrs);
         initVariable();
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressBar);
-        radius = ta.getDimension(R.styleable.CircleProgressBar_radius, 50);
-        width = ta.getDimension(R.styleable.CircleProgressBar_width, 10);
-        backCircleColor = ta.getColor(R.styleable.CircleProgressBar_backCircleColor, 0xBBBBBB);
-        foreCircleColor = ta.getColor(R.styleable.CircleProgressBar_foreCircleColor, 0xFF8A85);
-        currentProgress = ta.getInteger(R.styleable.CircleProgressBar_currentProgress, 100);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ProgressBar);
+        radius = ta.getDimension(R.styleable.ProgressBar_radius, 50);
+        width = ta.getDimension(R.styleable.ProgressBar_width, 10);
+        backCircleColor = ta.getColor(R.styleable.ProgressBar_backCircleColor, 0xBBBBBB);
+        foreCircleColor = ta.getColor(R.styleable.ProgressBar_foreCircleColor, 0xFF8A85);
+        currentProgress = ta.getInteger(R.styleable.ProgressBar_currentProgress, -1);
+        type = ta.getInt(R.styleable.ProgressBar_type, 1);
         ta.recycle();
     }
 
@@ -60,19 +62,26 @@ public class CircleProgressBar extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        @SuppressLint("DrawAllocation") RectF oval = new RectF(
-                getWidth() / 2 - radius,
-                getHeight() / 2 - radius,
-                getWidth() / 2 + radius,
-                getHeight() / 2 + radius);
-        canvas.drawArc(oval, 0, 360, false, backCirclePaint);
-        if (currentProgress >= 0) {
-            canvas.drawArc(oval, 90, ((float) currentProgress / 100) * 360,
-                    false, foreCirclePaint);
+        if (type == 0) {
+            @SuppressLint("DrawAllocation") RectF oval = new RectF(
+                    getWidth() / 2 - radius,
+                    getHeight() / 2 - radius,
+                    getWidth() / 2 + radius,
+                    getHeight() / 2 + radius);
+            canvas.drawArc(oval, 0, 360, false, backCirclePaint);
+            if (currentProgress > 0) {
+                canvas.drawArc(oval, 90, currentProgress  * 360,
+                        false, foreCirclePaint);
+            }
+        } else if (type == 1) {
+            canvas.drawLine(0, 0, getWidth(), 0, backCirclePaint);
+            if (currentProgress > 0){
+                canvas.drawLine(0, 0, currentProgress / 100 * getWidth(), 0, foreCirclePaint);
+            }
         }
     }
 
-    public void setCurrentProgress(int progress) {
+    public void setCurrentProgress(float progress) {
         currentProgress = progress;
         postInvalidate();
     }
