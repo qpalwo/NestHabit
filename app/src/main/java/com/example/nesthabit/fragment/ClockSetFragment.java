@@ -13,6 +13,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.R;
@@ -184,7 +185,7 @@ public class ClockSetFragment extends BaseFragment {
                 Clock clock = new Clock();
                 clock.setId();
                 if (clockSetTitle.getText().toString() == "") {
-                    showToast("请填写闹钟的标题");
+                    showToast("请填写闹钟的标题", Toast.LENGTH_SHORT);
                     return;
                 }
                 clock.setTitle(clockSetTitle.getText().toString());
