@@ -14,33 +14,10 @@ public class NestFraPresenter extends BasePresent<NestView> {
 
     public void setData(){
         UserHelper userHelper = new UserHelper();
-        userHelper.getNest(AVUser.getCurrentUser(), new CallBack<List<String>>() {
+        userHelper.getNest(AVUser.getCurrentUser(), new CallBack<List<Nest>>() {
             @Override
-            public void onSuccess(List<String> data) {
-                NestHelper nestHelper = new NestHelper();
-                nestHelper.getNests(data, new CallBack<List<Nest>>() {
-                    @Override
-                    public void onSuccess(List<Nest> data) {
-                        if (isViewAttached()){
-                            getView().setNestRecyclerData(data);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(String msg) {
-
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+            public void onSuccess(List<Nest> data) {
+                getView().setNestRecyclerData(data);
             }
 
             @Override

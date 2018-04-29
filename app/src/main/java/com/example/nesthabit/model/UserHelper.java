@@ -28,21 +28,21 @@ public class UserHelper {
     }
 
 
-    public void getNest(AVUser user, CallBack<List<String>> callBack){
-        List<String> nests = new ArrayList<>();
+    public void getNest(AVUser user, CallBack<List<Nest>> callBack){
+        List<Nest> nests = new ArrayList<>();
         List list = user.getList(USER_NEST);
         for (Object object : list){
-            nests.add((String) object);
+            nests.add((Nest) object);
         }
         callBack.onSuccess(nests);
         callBack.onComplete();
     }
 
-    public void getClock(AVUser user, CallBack<List<String>> callBack){
-        List<String> clocks = new ArrayList<>();
+    public void getClock(AVUser user, CallBack<List<Clock>> callBack){
+        List<Clock> clocks = new ArrayList<>();
         List list = user.getList(USER_CLOCK);
         for (Object object : list){
-            clocks.add((String) object);
+            clocks.add((Clock) object);
         }
         callBack.onSuccess(clocks);
         callBack.onComplete();
