@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< c9f3f4dd0584dbfa4151229a6028337bed8face9
-    <declare-styleable name="CircleProgressBar">
-=======
     <declare-styleable name="ProgressBar">
         <attr name="type" format="enum">
             <enum name="circle" value="0"/>
             <enum name="line" value="1"/>
         </attr>
->>>>>>> change some weight
+
         <attr name="backCircleColor" format="color" />
         <attr name="foreCircleColor" format="color" />
         <attr name="radius" format="dimension" />
         <attr name="width" format="dimension" />
-<<<<<<< c9f3f4dd0584dbfa4151229a6028337bed8face9
-        <attr name="currentProgress" format="integer" />
-=======
+
         <attr name="currentProgress" format="float" />
 
->>>>>>> change some weight
     </declare-styleable>
 </resources>
