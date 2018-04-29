@@ -5,10 +5,12 @@
             <enum name="circle" value="0"/>
             <enum name="line" value="1"/>
         </attr>
+
         <attr name="backCircleColor" format="color" />
         <attr name="foreCircleColor" format="color" />
         <attr name="radius" format="dimension" />
         <attr name="width" format="dimension" />
+
         <attr name="currentProgress" format="float" />
 
     </declare-styleable>

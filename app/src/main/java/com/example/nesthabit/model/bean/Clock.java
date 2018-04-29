@@ -6,21 +6,21 @@ import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.model.DataUtil;
 
 public class Clock extends AVObject{
-    public String id;
-    public String title;
-    public int isOpen;
-    public String slogan;
-    public String musicId;
-    public int durationLevel;
-    public int volumeLevel;
-    public int napLevel;
-    public Nest nest;
-    public int willingMusic;
-    public int willingText;
-    public long createTime;
-    public String ownerName;
-    public int timeHour;
-    public int timeMin;
+    private String id;
+    private String title;
+    private int isOpen;
+    private String slogan;
+    private String musicId;
+    private int durationLevel;
+    private int volumeLevel;
+    private int napLevel;
+    private Nest nest;
+    private int willingMusic;
+    private int willingText;
+    private long createTime;
+    private String ownerName;
+    private int timeHour;
+    private int timeMin;
 
     public String getId() {
         return id;

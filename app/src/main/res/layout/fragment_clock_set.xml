@@ -45,40 +45,44 @@
                     android:id="@+id/clock_set_1"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="8dp"
                     android:text="标题"
                     android:textColor="#5c6b73"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/clock_set_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_toRightOf="@id/clock_set_1"
+                    android:layout_margin="8dp"
+                    android:layout_toEndOf="@id/clock_set_1"
                     android:background="@null"
                     android:text="我要早起"
                     android:textAlignment="viewEnd"
                     android:textColor="#5c6b73"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <View
                     android:id="@+id/clock_set_divider1"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@id/clock_set_1"
-                    android:background="#5c6b73" />
+                    android:layout_below="@+id/clock_set_1"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="#CCCCCC" />
 
                 <TextView
                     android:id="@+id/clock_set_2"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/clock_set_divider1"
-                    android:layout_margin="5dp"
+                    android:layout_margin="8dp"
                     android:text="重复"
                     android:textColor="#5c6b73"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <include
+                    android:id="@+id/days_button"
                     layout="@layout/days_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,39 +92,42 @@
 
                 <View
                     android:id="@+id/clock_set_divider2"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@id/clock_set_2"
-                    android:background="#5c6b73" />
-
-                <TextView
-                    android:id="@+id/clock_set_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/clock_set_divider2"
-                    android:layout_margin="5dp"
-                    android:text="对应鸟窝"
-                    android:textColor="#5c6b73"
-                    android:textSize="20sp" />
+                    android:layout_below="@id/days_button"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="#CCCCCC" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/clock_set_nest_item"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@id/clock_set_divider2"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="对应鸟窝"
+                        android:textColor="#5c6b73"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/clock_set_nest_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:layout_margin="8dp"
                         android:text="早起的鸟儿有虫吃"
                         android:textColor="#5c6b73"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <Button
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
                         android:background="@mipmap/right" />
 
                 </LinearLayout>
