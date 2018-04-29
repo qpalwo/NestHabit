@@ -42,8 +42,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         clockFraPresenter = new ClockFraPresenter();
@@ -55,7 +54,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
     @Override
     public void onStart() {
         super.onStart();
-        showDeleteDialog();
+       // showDeleteDialog();
     }
 
     private void initRecycler() {
@@ -87,26 +86,5 @@ public class ClockFragment extends BaseFragment implements ClockView {
     public void onViewClicked() {
         Intent intent = new Intent(getActivity(), ClockSetActivity.class);
         startActivity(intent);
-    }
-
-    private void showDeleteDialog() {
-        final DeleteDialog dialog = new DeleteDialog.Builder(getActivity())
-                .heightDp(175)
-                .widthDp(270)
-                .style(R.style.Dialog)
-                .cancelTouchOut(false)
-                .view(R.layout.dialog_delete)
-                .text("将该闹钟从列表中删除")
-                .setDialogClickListener(new DeleteDialog.DialogClickListener() {
-                    @Override
-                    public void onCancelClicked() {}
-
-                    @Override
-                    public void onDeleteClicked() {
-
-                    }
-                })
-                .build();
-        dialog.show();
     }
 }

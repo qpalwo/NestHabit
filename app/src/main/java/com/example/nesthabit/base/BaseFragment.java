@@ -43,9 +43,9 @@ public abstract class BaseFragment extends Fragment implements BaseView, HandleB
         ((BaseActivity) mContext).hideLoading();
     }
     @Override
-    public void showToast(String msg) {
+    public void showToast(String msg, int time) {
         checkActivityAttached();
-        ((BaseActivity) mContext).showToast(msg);
+        ((BaseActivity) mContext).showToast(msg, time);
     }
 
     @Override
