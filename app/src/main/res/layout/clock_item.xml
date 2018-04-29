@@ -13,7 +13,8 @@
             android:id="@+id/clock_item_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/night" />
 
         <RelativeLayout
@@ -74,15 +75,14 @@
                 android:textColor="#78909c"
                 android:textSize="25sp" />
 
-
         </RelativeLayout>
 
         <Switch
             android:id="@+id/clock_item_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
-
 </android.support.v7.widget.CardView>

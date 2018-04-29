@@ -12,15 +12,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.R;
 import com.example.nesthabit.activity.ClockSetActivity;
 import com.example.nesthabit.activity.HomeActivity;
 import com.example.nesthabit.base.BaseFragment;
+import com.example.nesthabit.base.CallBack;
 import com.example.nesthabit.base.ItemOnClickListener;
+import com.example.nesthabit.model.UserHelper;
+import com.example.nesthabit.model.bean.Clock;
 import com.example.nesthabit.presenter.ClockFraPresenter;
 import com.example.nesthabit.adapter.ClockRecyclerAdapter;
 import com.example.nesthabit.widget.DeleteDialog;
 
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -29,12 +34,15 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class ClockFragment extends BaseFragment implements ClockView {
+
     @BindView(R.id.clock_recycler_view)
     RecyclerView clockRecyclerView;
     @BindView(R.id.clock_float_button)
     FloatingActionButton clockFloatButton;
+
     Unbinder unbinder;
     ClockFraPresenter clockFraPresenter;
+    List<Clock> clockList;
 
     @Override
     public int getContentViewId() {
@@ -48,6 +56,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
         unbinder = ButterKnife.bind(this, rootView);
         clockFraPresenter = new ClockFraPresenter();
         clockFraPresenter.attachView(this);
+        getClocks();
         initRecycler();
         return rootView;
     }
@@ -55,7 +64,31 @@ public class ClockFragment extends BaseFragment implements ClockView {
     @Override
     public void onStart() {
         super.onStart();
-        showDeleteDialog();
+    }
+
+    private void getClocks() {
+        UserHelper helper = new UserHelper();
+        helper.getClock(AVUser.getCurrentUser(), new CallBack<List<Clock>>() {
+            @Override
+            public void onSuccess(List<Clock> data) {
+                clockList = data;
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     private void initRecycler() {
@@ -73,7 +106,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
         ClockRecyclerAdapter clockRecyclerAdapter = new ClockRecyclerAdapter(itemOnClickListener);
         clockRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         clockRecyclerView.setAdapter(clockRecyclerAdapter);
-        //TODO  更新数据
+        clockRecyclerAdapter.upDate(clockList);
     }
 
     @Override
@@ -99,7 +132,8 @@ public class ClockFragment extends BaseFragment implements ClockView {
                 .text("将该闹钟从列表中删除")
                 .setDialogClickListener(new DeleteDialog.DialogClickListener() {
                     @Override
-                    public void onCancelClicked() {}
+                    public void onCancelClicked() {
+                    }
 
                     @Override
                     public void onDeleteClicked() {

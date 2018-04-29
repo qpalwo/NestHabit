@@ -62,13 +62,32 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.clock_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.clock_item, parent,
+                false);
         return new ViewHolder(view, itemOnClickListener);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Clock clock = clockInfos.get(position);
+        holder.clockItemSlogan.setText(clock.getTitle());
+        holder.clockItemTime.setText(String.valueOf(clock.getTimeHour())
+                + ":" + String.valueOf(clock.getTimeMin()));
+        holder.clockItemSwitch.setChecked(clock.getIsOpen() == 1);
+        if (!holder.clockItemSwitch.isChecked()) {
+            if (clock.getTimeHour() >= 6 && clock.getTimeHour() <= 18) {
+                holder.clockItemImg.setImageResource(R.drawable.day);
+            } else {
+                holder.clockItemImg.setImageResource(R.drawable.night);
+            }
+        } else {
+            holder.itemView.setAlpha((float) 0.6);
+            if (clock.getTimeHour() >= 6 && clock.getTimeHour() <= 18) {
+                holder.clockItemImg.setImageResource(R.drawable.day_unchecked);
+            } else {
+                holder.clockItemImg.setImageResource(R.drawable.night_unchecked);
+            }
+        }
     }
 
     @Override
