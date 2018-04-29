@@ -14,7 +14,10 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SaveCallback;
+import com.avos.avoscloud.SignUpCallback;
 import com.example.nesthabit.R;
 import com.example.nesthabit.adapter.HomePagerAdapter;
 import com.example.nesthabit.base.BaseActivity;
@@ -60,16 +63,6 @@ public class HomeActivity extends BaseActivity implements HomeView {
         initView();
         initPager();
         selectTab(0);
-        AVObject testObject = new AVObject("TestObject");
-        testObject.put("words", "Hello World!");
-        testObject.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(AVException e) {
-                if (e == null) {
-                    Log.d("saved", "success!");
-                }
-            }
-        });
 
     }
 

@@ -51,7 +51,7 @@
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
-                    <com.example.nesthabit.widget.CircleProgressBar
+                    <com.example.nesthabit.widget.ProgressBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -90,7 +90,7 @@
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
-                    <com.example.nesthabit.widget.CircleProgressBar
+                    <com.example.nesthabit.widget.ProgressBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -98,7 +98,8 @@
                         cp:radius="50dp"
                         cp:backCircleColor="#B0BEC5"
                         cp:foreCircleColor="@color/colorPink"
-                        cp:currentProgress="50"/>
+                        cp:currentProgress="50"
+                        cp:type="circle"/>
                 </RelativeLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>

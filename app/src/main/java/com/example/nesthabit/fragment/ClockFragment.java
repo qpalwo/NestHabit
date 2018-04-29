@@ -55,7 +55,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
     @Override
     public void onStart() {
         super.onStart();
-        showDeleteDialog();
+       // showDeleteDialog();
     }
 
     private void initRecycler() {

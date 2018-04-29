@@ -20,7 +20,7 @@ public interface BaseView {
      * 显示提示
      * @param msg
      */
-    void showToast(String msg);
+    void showToast(String msg, int time);
 
 
     /**

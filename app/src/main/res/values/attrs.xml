@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CircleProgressBar">
+    <declare-styleable name="ProgressBar">
+        <attr name="type" format="enum">
+            <enum name="circle" value="0"/>
+            <enum name="line" value="1"/>
+        </attr>
         <attr name="backCircleColor" format="color" />
         <attr name="foreCircleColor" format="color" />
         <attr name="radius" format="dimension" />
         <attr name="width" format="dimension" />
-        <attr name="currentProgress" format="integer" />
+        <attr name="currentProgress" format="float" />
+
     </declare-styleable>
 </resources>
