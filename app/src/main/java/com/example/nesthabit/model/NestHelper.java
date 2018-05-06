@@ -1,6 +1,7 @@
 package com.example.nesthabit.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -35,6 +36,7 @@ public class NestHelper {
     public static final String MEMBERS= "members";
     public static final String SIGNMSGS= "signmsgs";
     public static final String COMMUMSGS= "commumsgs";
+    private static final String TAG = "NestHelper";
 
     public void createNestOnNet(Nest nest){
 //        UserHelper userHelper = new UserHelper();
@@ -58,7 +60,8 @@ public class NestHelper {
 //        saveToCache(nest);
 //        userHelper.addNest(nest);
 
-        nest.saveAsync();
+        nest.save();
+        Log.d(TAG, "createNestOnNet: 保存成功");
     }
 
     public void getNests(List<String> nestId, CallBack<List<Nest>> callBack){
@@ -134,7 +137,7 @@ public class NestHelper {
             public void run() {
                 ACache aCache = ACache.get(MyLeanCloudApp.getContext(), ACache.CACHE_NAME);
                 Gson gson = new Gson();
-                aCache.put(nest.getId(), gson.toJson(nest, Nest.class), ACache.TIME_DAY);
+              //  aCache.put(nest.getId(), gson.toJson(nest, Nest.class), ACache.TIME_DAY);
             }
         }).start();
     }

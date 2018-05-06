@@ -15,7 +15,7 @@ import java.util.Observable;
 
 
 public class Nest extends DataSupport{
-    private String id;
+    //private String id;
     private String name;
     private String desc;
     private int membersLimit;
@@ -31,17 +31,17 @@ public class Nest extends DataSupport{
     private List<Message> signmsgs = new ArrayList<>();
     private List<Message> commumsgs = new ArrayList<>();
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setId() {
-        this.id = DataUtil.getUnixStamp() + "";
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+//
+//    public void setId() {
+//        this.id = DataUtil.getUnixStamp() + "";
+//    }
 
     public String getName() {
         return name;

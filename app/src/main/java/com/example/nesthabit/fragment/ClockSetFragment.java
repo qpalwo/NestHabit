@@ -74,33 +74,7 @@ public class ClockSetFragment extends BaseFragment {
         if (rootView != null) {
             unbinder = ButterKnife.bind(this, rootView);
         }
-        getNests();
         return rootView;
-    }
-
-    private void getNests() {
-        UserHelper helper = new UserHelper();
-        helper.getNest(AVUser.getCurrentUser(), new CallBack<List<Nest>>() {
-            @Override
-            public void onSuccess(List<Nest> data) {
-                nestList = data;
-            }
-
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onError() {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
     }
 
     @Override
@@ -183,7 +157,7 @@ public class ClockSetFragment extends BaseFragment {
 
             case R.id.clock_set_complete_button:
                 Clock clock = new Clock();
-                clock.setId();
+               // clock.setId();
                 if (clockSetTitle.getText().toString() == "") {
                     showToast("请填写闹钟的标题", Toast.LENGTH_SHORT);
                     return;
@@ -196,7 +170,7 @@ public class ClockSetFragment extends BaseFragment {
                 clock.setNapLevel(clockSetNapSwitch.isChecked() ? 1 : 0);
                 clock.setWillingMusic(clockSetRemindVoiceSwitch.isChecked() ? 1 : 0);
                 clock.setWillingText(clockSetRemindTextSwitch.isChecked() ? 1 : 0);
-                clock.setOwner(AVUser.getCurrentUser().getUsername());
+//                clock.setOwner(AVUser.getCurrentUser().getUsername());
                 clock.setCreateTime(System.currentTimeMillis());
                 clock.setNest(currentNest);
 //                clock.setMusicId();
@@ -205,6 +179,7 @@ public class ClockSetFragment extends BaseFragment {
 
                 ClockHelper helper = new ClockHelper();
                 helper.createClockOnNet(clock);
+                onBackPressed();
                 break;
         }
     }

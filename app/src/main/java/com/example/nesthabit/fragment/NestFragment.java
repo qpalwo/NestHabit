@@ -18,6 +18,8 @@ import com.example.nesthabit.base.ItemOnClickListener;
 import com.example.nesthabit.model.bean.Nest;
 
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,6 +35,7 @@ public class NestFragment extends BaseFragment implements NestView {
     RecyclerView nestRecyclerView;
     @BindView(R.id.nest_float_button)
     FloatingActionButton nestFloatButton;
+    NestContentRecyclerAdapter adapter;
 
     Unbinder unbinder;
 
@@ -48,7 +51,7 @@ public class NestFragment extends BaseFragment implements NestView {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
 
-        NestContentRecyclerAdapter adapter = new NestContentRecyclerAdapter(new ItemOnClickListener() {
+        adapter = new NestContentRecyclerAdapter(new ItemOnClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
@@ -57,9 +60,16 @@ public class NestFragment extends BaseFragment implements NestView {
         GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
         nestRecyclerView.setLayoutManager(manager);
         nestRecyclerView.setAdapter(adapter);
+        adapter.changeData(DataSupport.findAll(Nest.class));
 //        nestFraPresenter.setData();
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        upDateList();
     }
 
     @Override
@@ -84,5 +94,11 @@ public class NestFragment extends BaseFragment implements NestView {
     public void onDestroy() {
         super.onDestroy();
 
+    }
+
+    private void upDateList() {
+        if (adapter != null) {
+            adapter.changeData(DataSupport.findAll(Nest.class));
+        }
     }
 }

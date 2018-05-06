@@ -8,7 +8,7 @@ import com.example.nesthabit.model.DataUtil;
 import org.litepal.crud.DataSupport;
 
 public class Clock extends DataSupport{
-    private String id;
+  //  private String id;
     private String title;
     private int isOpen;
     private String slogan;
@@ -24,17 +24,17 @@ public class Clock extends DataSupport{
     private int timeHour;
     private int timeMin;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id){
-        this.id = id;
-    }
-
-    public void setId() {
-        this.id = DataUtil.getUnixStamp() + "";
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id){
+//        this.id = id;
+//    }
+//
+//    public void setId() {
+//        this.id = DataUtil.getUnixStamp() + "";
+//    }
 
     public String getTitle() {
         return title;

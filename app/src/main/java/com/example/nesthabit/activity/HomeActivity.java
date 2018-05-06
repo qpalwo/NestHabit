@@ -27,6 +27,9 @@ import com.example.nesthabit.fragment.NestFragment;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.litepal.crud.DataSupport;
+import org.litepal.tablemanager.Connector;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +62,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
         setContentView(R.layout.activity_home);
 
         ButterKnife.bind(this);
-
+        Connector.getDatabase();
         initView();
         initPager();
         selectTab(0);

@@ -87,15 +87,15 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
         if (!limitNumber.isChecked()) {
             nest.setMembersLimit(0);
         } else {
-            nest.setMembersLimit(Integer.parseInt(createMemberNumberEditText.getText().toString()));
+            nest.setMembersLimit(Integer.parseInt(createMemberNumberEditText.getText().toString().trim()));
         }
-        nest.setId();
+        //nest.setId();
         nest.setName(createNameEditText.getText().toString());
         nest.setDesc(createIntroductionEditText.getText().toString());
         nest.setChallengeDays(Integer.parseInt(createChallengeDateEditText.getText().toString()));
         nest.setCreatedTime(DataUtil.getUnixStamp());
         nest.setIsOpen(1);//创建初默认开放
-        nest.setOwner(AVUser.getCurrentUser().getUsername());
+       // nest.setOwner(AVUser.getCurrentUser().getUsername());
         nest.setCreator(nest.getOwner());
         nest.setMemberAmount(1);
         NestHelper nestHelper = new NestHelper();

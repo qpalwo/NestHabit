@@ -19,11 +19,14 @@ import com.example.nesthabit.activity.HomeActivity;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.base.CallBack;
 import com.example.nesthabit.base.ItemOnClickListener;
+import com.example.nesthabit.model.ClockHelper;
 import com.example.nesthabit.model.UserHelper;
 import com.example.nesthabit.model.bean.Clock;
 
 import com.example.nesthabit.adapter.ClockRecyclerAdapter;
 import com.example.nesthabit.widget.DeleteDialog;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,13 +36,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class ClockFragment extends BaseFragment implements ClockView {
+public class ClockFragment extends BaseFragment {
 
     @BindView(R.id.clock_recycler_view)
     RecyclerView clockRecyclerView;
     @BindView(R.id.clock_float_button)
     FloatingActionButton clockFloatButton;
 
+    ClockRecyclerAdapter clockRecyclerAdapter;
     Unbinder unbinder;
 
     List<Clock> clockList;
@@ -53,8 +57,6 @@ public class ClockFragment extends BaseFragment implements ClockView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-
-        getClocks();
         initRecycler();
         return rootView;
     }
@@ -62,12 +64,9 @@ public class ClockFragment extends BaseFragment implements ClockView {
     @Override
     public void onStart() {
         super.onStart();
+        updateList();
     }
 
-    private void getClocks() {
-        UserHelper helper = new UserHelper();
-
-    }
 
     private void initRecycler() {
         ItemOnClickListener itemOnClickListener = new ItemOnClickListener() {
@@ -81,9 +80,10 @@ public class ClockFragment extends BaseFragment implements ClockView {
                 }
             }
         };
-        ClockRecyclerAdapter clockRecyclerAdapter = new ClockRecyclerAdapter(itemOnClickListener);
+        clockRecyclerAdapter = new ClockRecyclerAdapter(itemOnClickListener);
         clockRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         clockRecyclerView.setAdapter(clockRecyclerAdapter);
+        clockList = DataSupport.findAll(Clock.class);
         clockRecyclerAdapter.upDate(clockList);
     }
 
@@ -120,5 +120,11 @@ public class ClockFragment extends BaseFragment implements ClockView {
                 })
                 .build();
         dialog.show();
+    }
+
+    public void updateList() {
+        if (clockRecyclerAdapter != null){
+            clockRecyclerAdapter.upDate(DataSupport.findAll(Clock.class));
+        }
     }
 }

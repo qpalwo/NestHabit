@@ -16,6 +16,7 @@ import com.example.nesthabit.widget.ProgressBar;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContentRecyclerAdapter.ViewHolder> {
     List<Nest> nests;
@@ -34,15 +35,18 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Nest nest = nests.get(position);
-        holder.nestName.setText(nest.getName());
+        if (nest.getName() != null) {
+            holder.nestName.setText(nest.getName());
+        }
         if (nest.getMembersLimit() != 0) {
             holder.nestItemProgress.setCurrentProgress(nest.getMemberAmount() / nest.getMembersLimit());
         } else {
             holder.nestItemProgress.setCurrentProgress(0.75f);
         }
-        if (!AVUser.getCurrentUser().getUsername().equals(nest.getOwner())){
-            holder.flagMaster.setVisibility(View.INVISIBLE);
-        }
+//        if (!AVUser.getCurrentUser().getUsername().equals(nest.getOwner())) {
+//            holder.flagMaster.setVisibility(View.INVISIBLE);
+//        }
+        // TODO: 18-5-6 is the owner tag
     }
 
     @Override
@@ -54,10 +58,10 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
         }
     }
 
-    public void changeData(List<Nest> nests){
-        if (this.nests == null){
+    public void changeData(List<Nest> nests) {
+        if (this.nests == null) {
             this.nests = nests;
-        }else {
+        } else {
             this.nests.addAll(nests);
         }
         notifyDataSetChanged();
@@ -75,6 +79,7 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
 
         public ViewHolder(View itemView, ItemOnClickListener itemOnClickListener) {
             super(itemView);
+            ButterKnife.bind(this,itemView);
             this.itemOnClickListener = itemOnClickListener;
         }
 

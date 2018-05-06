@@ -15,7 +15,7 @@ import com.example.nesthabit.R;
 /**
  * Created by dizzylay on 2018/4/28.
  */
-public class ProgressBar extends View {
+public class ProgressBar extends android.widget.ProgressBar {
 
     private Paint backCirclePaint;
     private int backCircleColor;

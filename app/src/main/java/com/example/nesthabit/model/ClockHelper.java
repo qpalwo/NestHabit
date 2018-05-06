@@ -1,6 +1,7 @@
 package com.example.nesthabit.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -58,8 +59,8 @@ public class ClockHelper {
 //        clock_obj.put(OWNER_NAME, clock.getOwner());
 //        clock_obj.saveInBackground();
 //        saveToCache(clock);
-       clock.saveAsync();
-
+        clock.save();
+        Log.d("====", "createClockOnNet: 保存成功");
 
     }
 
@@ -69,7 +70,7 @@ public class ClockHelper {
             public void run() {
                 ACache aCache = ACache.get(MyLeanCloudApp.getContext(), ACache.CACHE_NAME);
                 Gson gson = new Gson();
-                aCache.put(clock.getId(), gson.toJson(clock, Clock.class), ACache.TIME_DAY);
+               // aCache.put(clock.getId(), gson.toJson(clock, Clock.class), ACache.TIME_DAY);
             }
         }).start();
     }

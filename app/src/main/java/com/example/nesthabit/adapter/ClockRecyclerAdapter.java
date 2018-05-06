@@ -96,7 +96,7 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
     }
 
     public void upDate(@NonNull List<Clock> clockInfos) {
-        //this.clockInfos.addAll(clockInfos);
+        this.clockInfos.addAll(clockInfos);
         notifyDataSetChanged();
     }
 
