@@ -13,7 +13,6 @@ import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.ClockSetFragment;
 import com.example.nesthabit.fragment.ClockSetView;
-import com.example.nesthabit.presenter.ClockSetPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,22 +23,21 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView {
     TextView toolbarTitle;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private ClockSetPresenter clockSetPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clock_set);
         ButterKnife.bind(this);
-        clockSetPresenter = new ClockSetPresenter();
-        clockSetPresenter.attachView(this);
+
         initView();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        clockSetPresenter.detachView();
+
     }
 
     private void initView() {

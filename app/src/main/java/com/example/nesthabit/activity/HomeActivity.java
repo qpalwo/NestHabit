@@ -24,7 +24,7 @@ import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.fragment.ClockFragment;
 import com.example.nesthabit.fragment.NestFragment;
-import com.example.nesthabit.presenter.HomePresenter;
+
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
 
-    HomePresenter homePresenter;
+
     @BindView(R.id.home_bottom_clock_img)
     ImageButton homeBottomClockImg;
     @BindView(R.id.home_bottom_nest_img)
@@ -57,9 +57,9 @@ public class HomeActivity extends BaseActivity implements HomeView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        homePresenter = new HomePresenter();
+
         ButterKnife.bind(this);
-        homePresenter.attachView(this);
+
         initView();
         initPager();
         selectTab(0);
@@ -124,7 +124,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        homePresenter.detachView();
+
     }
 
     @OnClick({R.id.home_bottom_clock, R.id.home_bottom_nest,

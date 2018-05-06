@@ -13,6 +13,8 @@ import com.example.nesthabit.model.bean.Clock;
 import com.example.nesthabit.model.bean.Nest;
 import com.google.gson.Gson;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -38,24 +40,27 @@ public class ClockHelper {
 
 
     public void createClockOnNet(Clock clock) {
-        AVObject clock_obj = new AVObject("Clock");
-        clock_obj.put(TITLE, clock.getTitle());
-        clock_obj.put(ISOPEN, clock.getIsOpen());
-        clock_obj.put(SLOGAN, clock.getSlogan());
-        clock_obj.put(MUSIC_ID, clock.getMusicId());
-        clock_obj.put(DURATION_LEVEL, clock.getDurationLevel());
-        clock_obj.put(VOLUME_LEVEL, clock.getVolumeLevel());
-        clock_obj.put(NAP_LEVEL, clock.getNapLevel());
-        clock_obj.put(NEST, clock.getNest());
-        clock_obj.put(WILLING_MUSIC, clock.getWillingMusic());
-        clock_obj.put(WILLING_TEXT, clock.getWillingText());
-        clock_obj.put(CREATED_TIME, clock.getCreateTime());
-        clock_obj.put(TIME_HOUR, clock.getTimeHour());
-        clock_obj.put(TIME_MIN, clock.getTimeMin());
-        clock_obj.put(CLOCK_ID, clock.getId());
-        clock_obj.put(OWNER_NAME, clock.getOwner());
-        clock_obj.saveInBackground();
-        saveToCache(clock);
+//        AVObject clock_obj = new AVObject("Clock");
+//        clock_obj.put(TITLE, clock.getTitle());
+//        clock_obj.put(ISOPEN, clock.getIsOpen());
+//        clock_obj.put(SLOGAN, clock.getSlogan());
+//        clock_obj.put(MUSIC_ID, clock.getMusicId());
+//        clock_obj.put(DURATION_LEVEL, clock.getDurationLevel());
+//        clock_obj.put(VOLUME_LEVEL, clock.getVolumeLevel());
+//        clock_obj.put(NAP_LEVEL, clock.getNapLevel());
+//        clock_obj.put(NEST, clock.getNest());
+//        clock_obj.put(WILLING_MUSIC, clock.getWillingMusic());
+//        clock_obj.put(WILLING_TEXT, clock.getWillingText());
+//        clock_obj.put(CREATED_TIME, clock.getCreateTime());
+//        clock_obj.put(TIME_HOUR, clock.getTimeHour());
+//        clock_obj.put(TIME_MIN, clock.getTimeMin());
+//        clock_obj.put(CLOCK_ID, clock.getId());
+//        clock_obj.put(OWNER_NAME, clock.getOwner());
+//        clock_obj.saveInBackground();
+//        saveToCache(clock);
+       clock.saveAsync();
+
+
     }
 
     private void saveToCache(final Clock clock) {
@@ -69,9 +74,9 @@ public class ClockHelper {
         }).start();
     }
 
-    public void getClocks(List<String> clockId, CallBack<List<Clock>> callBack, Context context) {
-        final CountDownLatch countDownLatch = new CountDownLatch(clockId.size());
-        final List<Clock> clocks = new ArrayList<>();
+    public void getClocks(long[] clockId, CallBack<List<Clock>> callBack, Context context) {
+        //final CountDownLatch countDownLatch = new CountDownLatch(clockId.size());
+        final List<Clock> clocks = DataSupport.findAll(Clock.class);
 //        for(String id : clockId){
 //            getClock(id, new CallBack<Clock>() {
 //                @Override
@@ -105,36 +110,36 @@ public class ClockHelper {
         callBack.onComplete();
     }
 
-    public void getClock(String clockId, final CallBack<Clock> callBack) {
-        Clock clock = getFromCache(clockId);
-        if (clock == null) {
-            getFromNet(clockId, new CallBack<Clock>() {
-                @Override
-                public void onSuccess(Clock data) {
-                    callBack.onSuccess(data);
-                }
-
-                @Override
-                public void onFailure(String msg) {
-
-                }
-
-                @Override
-                public void onError() {
-
-                }
-
-                @Override
-                public void onComplete() {
-                    callBack.onComplete();
-                }
-            });
-        }else {
-            callBack.onSuccess(clock);
-            callBack.onComplete();
-        }
-
-    }
+//    public void getClock(String clockId, final CallBack<Clock> callBack) {
+//        Clock clock = getFromCache(clockId);
+//        if (clock == null) {
+//            getFromNet(clockId, new CallBack<Clock>() {
+//                @Override
+//                public void onSuccess(Clock data) {
+//                    callBack.onSuccess(data);
+//                }
+//
+//                @Override
+//                public void onFailure(String msg) {
+//
+//                }
+//
+//                @Override
+//                public void onError() {
+//
+//                }
+//
+//                @Override
+//                public void onComplete() {
+//                    callBack.onComplete();
+//                }
+//            });
+//        }else {
+//            callBack.onSuccess(clock);
+//            callBack.onComplete();
+//        }
+//
+//    }
 
     private Clock getFromCache(String id) {
         ACache aCache = ACache.get(MyLeanCloudApp.getContext(), ACache.CACHE_NAME);
@@ -146,38 +151,38 @@ public class ClockHelper {
         }
     }
 
-    private void getFromNet(final String id, final CallBack<Clock> callBack) {
-        AVQuery<AVObject> avQuery = new AVQuery<>("Clock");
-        avQuery.whereContains(CLOCK_ID, id);
-        avQuery.getFirstInBackground(new GetCallback<AVObject>() {
-            @Override
-            public void done(AVObject avObject, AVException e) {
-                Clock clock = new Clock();
-                clock.setWillingText(avObject.getInt(WILLING_TEXT));
-                clock.setWillingMusic(avObject.getInt(WILLING_MUSIC));
-                clock.setVolumeLevel(avObject.getInt(VOLUME_LEVEL));
-                clock.setTitle(avObject.getString(TITLE));
-                clock.setTimeMin(avObject.getInt(TIME_MIN));
-                clock.setTimeHour(avObject.getInt(TIME_HOUR));
-                clock.setSlogan(avObject.getString(SLOGAN));
-                clock.setMusicId(avObject.getString(MUSIC_ID));
-                clock.setDurationLevel(avObject.getInt(DURATION_LEVEL));
-                clock.setCreateTime(avObject.getLong(CREATED_TIME));
-                clock.setNapLevel(avObject.getInt(NAP_LEVEL));
-                clock.setIsOpen(avObject.getInt(ISOPEN));
-                clock.setId(avObject.getString(CLOCK_ID));
-                clock.setOwner(avObject.getString(OWNER_NAME));
-                try {
-                    clock.setNest(avObject.getAVObject(NEST, Nest.class));
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                callBack.onSuccess(clock);
-                callBack.onComplete();
-            }
-        });
-
-    }
+//    private void getFromNet(final String id, final CallBack<Clock> callBack) {
+//        AVQuery<AVObject> avQuery = new AVQuery<>("Clock");
+//        avQuery.whereContains(CLOCK_ID, id);
+//        avQuery.getFirstInBackground(new GetCallback<AVObject>() {
+//            @Override
+//            public void done(AVObject avObject, AVException e) {
+//                Clock clock = new Clock();
+//                clock.setWillingText(avObject.getInt(WILLING_TEXT));
+//                clock.setWillingMusic(avObject.getInt(WILLING_MUSIC));
+//                clock.setVolumeLevel(avObject.getInt(VOLUME_LEVEL));
+//                clock.setTitle(avObject.getString(TITLE));
+//                clock.setTimeMin(avObject.getInt(TIME_MIN));
+//                clock.setTimeHour(avObject.getInt(TIME_HOUR));
+//                clock.setSlogan(avObject.getString(SLOGAN));
+//                clock.setMusicId(avObject.getString(MUSIC_ID));
+//                clock.setDurationLevel(avObject.getInt(DURATION_LEVEL));
+//                clock.setCreateTime(avObject.getLong(CREATED_TIME));
+//                clock.setNapLevel(avObject.getInt(NAP_LEVEL));
+//                clock.setIsOpen(avObject.getInt(ISOPEN));
+//                clock.setId(avObject.getString(CLOCK_ID));
+//                clock.setOwner(avObject.getString(OWNER_NAME));
+//                try {
+//                    clock.setNest(avObject.getAVObject(NEST, Nest.class));
+//                } catch (Exception e1) {
+//                    e1.printStackTrace();
+//                }
+//                callBack.onSuccess(clock);
+//                callBack.onComplete();
+//            }
+//        });
+//
+//    }
 
 
 }

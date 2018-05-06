@@ -17,8 +17,9 @@ import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.model.DataUtil;
+import com.example.nesthabit.model.NestHelper;
 import com.example.nesthabit.model.bean.Nest;
-import com.example.nesthabit.presenter.NestCreatePresenter;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +27,6 @@ import butterknife.OnClick;
 
 public class NestCreateActivity extends BaseActivity implements NestCreateView {
 
-    NestCreatePresenter nestCreatePresenter;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.create_name_edit_text)
@@ -53,8 +53,7 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nest_create);
         ButterKnife.bind(this);
-        nestCreatePresenter = new NestCreatePresenter();
-        nestCreatePresenter.attachView(this);
+
         initView();
     }
 
@@ -99,7 +98,9 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
         nest.setOwner(AVUser.getCurrentUser().getUsername());
         nest.setCreator(nest.getOwner());
         nest.setMemberAmount(1);
-        nestCreatePresenter.createNest(nest);
+        NestHelper nestHelper = new NestHelper();
+        nestHelper.createNestOnNet(nest);
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -115,7 +116,7 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        nestCreatePresenter.detachView();
+
     }
 
     @OnClick({R.id.create_start_date_item, R.id.create_submit})

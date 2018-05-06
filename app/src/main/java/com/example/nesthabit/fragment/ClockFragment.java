@@ -21,7 +21,7 @@ import com.example.nesthabit.base.CallBack;
 import com.example.nesthabit.base.ItemOnClickListener;
 import com.example.nesthabit.model.UserHelper;
 import com.example.nesthabit.model.bean.Clock;
-import com.example.nesthabit.presenter.ClockFraPresenter;
+
 import com.example.nesthabit.adapter.ClockRecyclerAdapter;
 import com.example.nesthabit.widget.DeleteDialog;
 
@@ -41,7 +41,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
     FloatingActionButton clockFloatButton;
 
     Unbinder unbinder;
-    ClockFraPresenter clockFraPresenter;
+
     List<Clock> clockList;
 
     @Override
@@ -53,9 +53,8 @@ public class ClockFragment extends BaseFragment implements ClockView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-        clockFraPresenter = new ClockFraPresenter();
-        clockFraPresenter.attachView(this);
-//        getClocks();
+
+        getClocks();
         initRecycler();
         return rootView;
     }
@@ -67,26 +66,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
 
     private void getClocks() {
         UserHelper helper = new UserHelper();
-        helper.getClock(AVUser.getCurrentUser(), new CallBack<List<Clock>>() {
-            @Override
-            public void onSuccess(List<Clock> data) {
-            }
 
-            @Override
-            public void onFailure(String msg) {
-
-            }
-
-            @Override
-            public void onError() {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
     }
 
     private void initRecycler() {
@@ -111,7 +91,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        clockFraPresenter.detachView();
+
     }
 
     @OnClick(R.id.clock_float_button)

@@ -16,7 +16,7 @@ import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.base.BaseView;
 import com.example.nesthabit.base.ItemOnClickListener;
 import com.example.nesthabit.model.bean.Nest;
-import com.example.nesthabit.presenter.NestFraPresenter;
+
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class NestFragment extends BaseFragment implements NestView {
     RecyclerView nestRecyclerView;
     @BindView(R.id.nest_float_button)
     FloatingActionButton nestFloatButton;
-    NestFraPresenter nestFraPresenter;
+
     Unbinder unbinder;
 
     @Override
@@ -47,8 +47,7 @@ public class NestFragment extends BaseFragment implements NestView {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-        nestFraPresenter = new NestFraPresenter();
-        nestFraPresenter.attachView(this);
+
         NestContentRecyclerAdapter adapter = new NestContentRecyclerAdapter(new ItemOnClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -84,6 +83,6 @@ public class NestFragment extends BaseFragment implements NestView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        nestFraPresenter.detachView();
+
     }
 }

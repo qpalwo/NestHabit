@@ -9,6 +9,7 @@ public class Message extends DataSupport{
 
     public static final int SIGN = 0;
     public static final int COMMO = 1;
+    private int type;
 
     private long time;
     private String userName;
@@ -53,6 +54,4 @@ public class Message extends DataSupport{
     public void setType(int type) {
         this.type = type;
     }
-
-    private int type;
 }

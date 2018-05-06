@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.nesthabit.R;
-import com.tencent.plus.DensityUtil;
 
 /**
  * Created by dizzylay on 2018/4/27.

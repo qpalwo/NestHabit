@@ -9,6 +9,7 @@ import com.example.nesthabit.model.DataUtil;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -26,9 +27,9 @@ public class Nest extends DataSupport{
     private String creatorName;
     private String ownerName;
     private int memberAmount;
-    private List<AVUser> members;
-    private List<Message> signmsgs;
-    private List<Message> commumsgs;
+    private List<User> members = new ArrayList<>();
+    private List<Message> signmsgs = new ArrayList<>();
+    private List<Message> commumsgs = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -130,11 +131,11 @@ public class Nest extends DataSupport{
         this.memberAmount = memberAmount;
     }
 
-    public List<AVUser> getMembers() {
+    public List<User> getMembers() {
         return members;
     }
 
-    public void setMembers(List<AVUser> members) {
+    public void setMembers(List<User> members) {
         this.members = members;
     }
 
