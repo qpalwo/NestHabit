@@ -72,34 +72,35 @@ public class ClockHelper {
     public void getClocks(List<String> clockId, CallBack<List<Clock>> callBack, Context context) {
         final CountDownLatch countDownLatch = new CountDownLatch(clockId.size());
         final List<Clock> clocks = new ArrayList<>();
-        for(String id : clockId){
-            getClock(id, new CallBack<Clock>() {
-                @Override
-                public void onSuccess(Clock data) {
-                    clocks.add(data);
-                }
+//        for(String id : clockId){
+//            getClock(id, new CallBack<Clock>() {
+//                @Override
+//                public void onSuccess(Clock data) {
+//                    clocks.add(data);
+//                }
+//
+//                @Override
+//                public void onFailure(String msg) {
+//
+//                }
+//
+//                @Override
+//                public void onError() {
+//
+//                }
+//
+//                @Override
+//                public void onComplete() {
+//                    countDownLatch.countDown();
+//                }
+//            });
+//        }
+//        try {
+//            countDownLatch.await();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
-                @Override
-                public void onFailure(String msg) {
-
-                }
-
-                @Override
-                public void onError() {
-
-                }
-
-                @Override
-                public void onComplete() {
-                    countDownLatch.countDown();
-                }
-            });
-        }
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         callBack.onSuccess(clocks);
         callBack.onComplete();
     }

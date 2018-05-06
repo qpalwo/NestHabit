@@ -10,6 +10,8 @@ import com.example.nesthabit.model.bean.Message;
 import com.example.nesthabit.model.bean.Nest;
 import com.squareup.leakcanary.LeakCanary;
 
+import org.litepal.LitePal;
+
 public class MyLeanCloudApp extends Application {
     private static Context context;
 
@@ -21,6 +23,7 @@ public class MyLeanCloudApp extends Application {
         AVOSCloud.initialize(this,"9NId15Lb59tpyQY3CcCwn2mJ-9Nh9j0Va","YUySEzcH4whFN4h7csvF4bXu");
         AVOSCloud.setDebugLogEnabled(true);
         LeakCanary.install(this);
+        LitePal.initialize(this);
     }
     public static Context getContext() {
         return context;

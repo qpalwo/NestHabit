@@ -5,7 +5,9 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.model.DataUtil;
 
-public class Clock extends AVObject{
+import org.litepal.crud.DataSupport;
+
+public class Clock extends DataSupport{
     private String id;
     private String title;
     private int isOpen;

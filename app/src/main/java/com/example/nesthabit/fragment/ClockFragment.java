@@ -55,7 +55,7 @@ public class ClockFragment extends BaseFragment implements ClockView {
         unbinder = ButterKnife.bind(this, rootView);
         clockFraPresenter = new ClockFraPresenter();
         clockFraPresenter.attachView(this);
-        getClocks();
+//        getClocks();
         initRecycler();
         return rootView;
     }
@@ -67,9 +67,9 @@ public class ClockFragment extends BaseFragment implements ClockView {
 
     private void getClocks() {
         UserHelper helper = new UserHelper();
-        helper.getClock(AVUser.getCurrentUser(), new CallBack<List<String>>() {
+        helper.getClock(AVUser.getCurrentUser(), new CallBack<List<Clock>>() {
             @Override
-            public void onSuccess(List<String> data) {
+            public void onSuccess(List<Clock> data) {
             }
 
             @Override

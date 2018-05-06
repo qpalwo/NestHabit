@@ -7,26 +7,28 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.model.DataUtil;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 import java.util.Observable;
 
 
-public class Nest extends AVObject{
-    public String id;
-    public String name;
-    public String desc;
-    public int membersLimit;
-    public long startTime;
-    public int challengeDays;
-    public String coverImage;
-    public int isOpen;
-    public long createdTime;
-    public String creatorName;
-    public String ownerName;
-    public int memberAmount;
-    public List<AVUser> members;
-    public List<Message> signmsgs;
-    public List<Message> commumsgs;
+public class Nest extends DataSupport{
+    private String id;
+    private String name;
+    private String desc;
+    private int membersLimit;
+    private long startTime;
+    private int challengeDays;
+    private String coverImage;
+    private int isOpen;
+    private long createdTime;
+    private String creatorName;
+    private String ownerName;
+    private int memberAmount;
+    private List<AVUser> members;
+    private List<Message> signmsgs;
+    private List<Message> commumsgs;
 
     public String getId() {
         return id;

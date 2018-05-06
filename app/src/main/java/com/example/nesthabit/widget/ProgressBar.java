@@ -38,7 +38,8 @@ public class ProgressBar extends View {
         width = ta.getDimension(R.styleable.ProgressBar_width, 10);
         backCircleColor = ta.getColor(R.styleable.ProgressBar_backCircleColor, 0xBBBBBB);
         foreCircleColor = ta.getColor(R.styleable.ProgressBar_foreCircleColor, 0xFF8A85);
-        currentProgress = ta.getInteger(R.styleable.ProgressBar_currentProgress, -1);
+        currentProgress = 0;
+        //currentProgress = ta.getInteger(R.styleable.ProgressBar_currentProgress, -1);
         type = ta.getInt(R.styleable.ProgressBar_type, 1);
         ta.recycle();
     }
