@@ -1,38 +1,58 @@
 package com.example.nesthabit.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.nesthabit.R;
 import com.example.nesthabit.adapter.NestContentPagerAdapter;
+import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.NestFragment;
 import com.example.nesthabit.fragment.PunchAndCommunicateFragment;
-import com.example.nesthabit.R;
-import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.model.bean.Nest;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class NestContentActivity extends BaseActivity {
 
+    @BindView(R.id.total_punch_number)
+    TextView totalPunchNumber;
+    @BindView(R.id.successive_punch_number)
+    TextView successivePunchNumber;
+    @BindView(R.id.punch)
+    Button punch;
     private Intent intent;
     private Nest nest;
+
+    public static final String NEST = "NEST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nest_content);
+        ButterKnife.bind(this);
         intent = getIntent();
-        nest = (Nest) intent.getSerializableExtra(NestFragment.NEST);
+        nest = (Nest) intent.getSerializableExtra(NEST);
         initView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        punch.setText("打 卡");
     }
 
     @Override
@@ -82,5 +102,12 @@ public class NestContentActivity extends BaseActivity {
             default:
         }
         return true;
+    }
+
+    @OnClick(R.id.punch)
+    public void onViewClicked() {
+        Intent intent = new Intent(this, RecordActivity.class);
+        intent.putExtra(NEST, nest);
+        startActivity(intent);
     }
 }

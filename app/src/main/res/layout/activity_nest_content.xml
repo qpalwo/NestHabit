@@ -59,9 +59,10 @@
                         android:layout_centerInParent="true"
                         cp:width="15dp"
                         cp:radius="50dp"
+                        cp:type="circle"
                         cp:backCircleColor="#B0BEC5"
                         cp:foreCircleColor="@color/colorPink"
-                        cp:currentProgress="75"/>
+                        cp:currentProgress="0.75"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -100,7 +101,7 @@
                         cp:radius="50dp"
                         cp:backCircleColor="#B0BEC5"
                         cp:foreCircleColor="@color/colorPink"
-                        cp:currentProgress="50"
+                        cp:currentProgress="0.5"
                         cp:type="circle"/>
                 </RelativeLayout>
             </RelativeLayout>

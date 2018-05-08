@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- 基础模块 END -->
     <application
@@ -43,7 +43,7 @@
 
 
         <!-- 反馈组件（需要加入以下声明）START -->
-        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
+        <!--<activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />-->
         <!-- 反馈组件 END -->
 
         <activity
@@ -55,17 +55,18 @@
             android:exported="true" />
         <activity android:name=".activity.ClockRemindActivity" />
         <activity android:name=".activity.NestCreateActivity" />
-        <activity android:name=".activity.RemindFriendActivity"/>
+        <activity android:name=".activity.RemindFriendActivity" />
 
         <receiver
             android:name=".broadcast.ClockRemindReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="unique.NestHabit.action.CLOCK_REMIND"/>
+                <action android:name="unique.NestHabit.action.CLOCK_REMIND" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activity.RecordActivity"></activity>
     </application>
 
 </manifest>

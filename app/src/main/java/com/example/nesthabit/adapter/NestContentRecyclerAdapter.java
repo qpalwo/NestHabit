@@ -82,7 +82,7 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.nest_name)
         TextView nestName;
@@ -90,17 +90,14 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
         ImageView flagMaster;
         @BindView(R.id.nest_item_progress)
         ProgressBar nestItemProgress;
-        ItemOnClickListener itemOnClickListener;
 
         public ViewHolder(View itemView, ItemOnClickListener itemOnClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            this.itemOnClickListener = itemOnClickListener;
+            itemView.setOnClickListener((view) -> {
+                itemOnClickListener.onItemClick(view, getAdapterPosition());
+            });
         }
 
-        @Override
-        public void onClick(View v) {
-            itemOnClickListener.onItemClick(v, getAdapterPosition());
-        }
     }
 }
