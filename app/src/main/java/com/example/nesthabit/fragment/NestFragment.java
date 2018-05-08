@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nesthabit.R;
+import com.example.nesthabit.activity.NestContentActivity;
 import com.example.nesthabit.activity.NestCreateActivity;
 import com.example.nesthabit.adapter.NestContentRecyclerAdapter;
 import com.example.nesthabit.base.BaseFragment;
@@ -36,6 +37,8 @@ public class NestFragment extends BaseFragment implements NestView {
     @BindView(R.id.nest_float_button)
     FloatingActionButton nestFloatButton;
     NestContentRecyclerAdapter adapter;
+    List<Nest> nestList;
+    public static final String NEST = "NEST";
 
     Unbinder unbinder;
 
@@ -47,20 +50,22 @@ public class NestFragment extends BaseFragment implements NestView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
 
+        nestList = DataSupport.findAll(Nest.class);
         adapter = new NestContentRecyclerAdapter(new ItemOnClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Intent intent = new Intent(getActivity(), NestContentActivity.class);
+                intent.putExtra(NEST, nestList.get(position));
+                startActivity(intent);
             }
         });
         GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
         nestRecyclerView.setLayoutManager(manager);
         nestRecyclerView.setAdapter(adapter);
-        adapter.changeData(DataSupport.findAll(Nest.class));
+        adapter.changeData(nestList, NestContentRecyclerAdapter.LIST_UPDATE);
 //        nestFraPresenter.setData();
 
         return rootView;
@@ -87,7 +92,7 @@ public class NestFragment extends BaseFragment implements NestView {
     @Override
     public void setNestRecyclerData(List<Nest> list) {
         NestContentRecyclerAdapter adapter = (NestContentRecyclerAdapter) nestRecyclerView.getAdapter();
-        adapter.changeData(list);
+        adapter.changeData(list, NestContentRecyclerAdapter.LIST_UPDATE);
     }
 
     @Override
@@ -98,7 +103,7 @@ public class NestFragment extends BaseFragment implements NestView {
 
     private void upDateList() {
         if (adapter != null) {
-            adapter.changeData(DataSupport.findAll(Nest.class));
+            adapter.changeData(DataSupport.findAll(Nest.class), NestContentRecyclerAdapter.LIST_UPDATE);
         }
     }
 }

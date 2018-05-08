@@ -9,12 +9,13 @@ import com.example.nesthabit.model.DataUtil;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 
-public class Nest extends DataSupport{
+public class Nest extends DataSupport implements Serializable{
     //private String id;
     private String name;
     private String desc;

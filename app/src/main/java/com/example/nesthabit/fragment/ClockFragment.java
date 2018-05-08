@@ -3,24 +3,16 @@ package com.example.nesthabit.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.R;
 import com.example.nesthabit.activity.ClockSetActivity;
-import com.example.nesthabit.activity.HomeActivity;
 import com.example.nesthabit.base.BaseFragment;
-import com.example.nesthabit.base.CallBack;
 import com.example.nesthabit.base.ItemOnClickListener;
-import com.example.nesthabit.model.ClockHelper;
-import com.example.nesthabit.model.UserHelper;
 import com.example.nesthabit.model.bean.Clock;
 
 import com.example.nesthabit.adapter.ClockRecyclerAdapter;
@@ -29,7 +21,6 @@ import com.example.nesthabit.widget.DeleteDialog;
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,7 +75,7 @@ public class ClockFragment extends BaseFragment {
         clockRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         clockRecyclerView.setAdapter(clockRecyclerAdapter);
         clockList = DataSupport.findAll(Clock.class);
-        clockRecyclerAdapter.upDate(clockList);
+        clockRecyclerAdapter.changeData(clockList, ClockRecyclerAdapter.LIST_UPDATE);
     }
 
     @Override
@@ -124,7 +115,8 @@ public class ClockFragment extends BaseFragment {
 
     public void updateList() {
         if (clockRecyclerAdapter != null){
-            clockRecyclerAdapter.upDate(DataSupport.findAll(Clock.class));
+            clockRecyclerAdapter.changeData(DataSupport.findAll(Clock.class),
+                    ClockRecyclerAdapter.LIST_UPDATE);
         }
     }
 }

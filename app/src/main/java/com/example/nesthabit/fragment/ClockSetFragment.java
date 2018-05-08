@@ -26,6 +26,9 @@ import com.example.nesthabit.model.UserHelper;
 import com.example.nesthabit.model.bean.Clock;
 import com.example.nesthabit.model.bean.Nest;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -127,6 +130,7 @@ public class ClockSetFragment extends BaseFragment {
                 }
                 break;
 
+
             case R.id.clock_set_sound_item:
                 ClockSoundSetFragment soundSetFragment = new ClockSoundSetFragment();
                 FragmentTransaction transaction = Objects.requireNonNull(getActivity())
@@ -137,10 +141,14 @@ public class ClockSetFragment extends BaseFragment {
                 break;
 
             case R.id.clock_set_nest_item:
-                BottomSheetDialog dialog = new BottomSheetDialog(Objects.requireNonNull
+                nestList = DataSupport.findAll(Nest.class);
+                if (nestList == null) {
+                    nestList = new ArrayList<>();
+                }
+                final BottomSheetDialog dialog = new BottomSheetDialog(Objects.requireNonNull
                         (getActivity()));
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_nest, null);
-                RecyclerView recyclerView = view.findViewById(R.id.selected_friend_recycler_view);
+                RecyclerView recyclerView = dialogView.findViewById(R.id.dialog_select_recycler_view);
                 recyclerView.setLayoutManager(new LinearLayoutManager(dialog.getContext()));
                 NestSelectAdapter adapter = new NestSelectAdapter(nestList);
                 adapter.setItemOnClickListener(new ItemOnClickListener() {
@@ -148,6 +156,7 @@ public class ClockSetFragment extends BaseFragment {
                     public void onItemClick(View view, int position) {
                         currentNest = nestList.get(position);
                         clockSetNestName.setText(currentNest.getName());
+                        dialog.dismiss();
                     }
                 });
                 recyclerView.setAdapter(adapter);

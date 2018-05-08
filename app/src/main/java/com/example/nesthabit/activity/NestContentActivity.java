@@ -13,18 +13,25 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.nesthabit.adapter.NestContentPagerAdapter;
+import com.example.nesthabit.fragment.NestFragment;
 import com.example.nesthabit.fragment.PunchAndCommunicateFragment;
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseActivity;
+import com.example.nesthabit.model.bean.Nest;
 
 import java.util.ArrayList;
 
 public class NestContentActivity extends BaseActivity {
 
+    private Intent intent;
+    private Nest nest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nest_content);
+        intent = getIntent();
+        nest = (Nest) intent.getSerializableExtra(NestFragment.NEST);
         initView();
     }
 
@@ -43,7 +50,7 @@ public class NestContentActivity extends BaseActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.back);
             actionBar.setDisplayShowTitleEnabled(false);
             TextView toolbarTitle = findViewById(R.id.toolbar_title);
-            toolbarTitle.setText("早起的鸟儿有虫吃");
+            toolbarTitle.setText(nest.getName());
         }
 
         ArrayList<Fragment> fragments = new ArrayList<>();

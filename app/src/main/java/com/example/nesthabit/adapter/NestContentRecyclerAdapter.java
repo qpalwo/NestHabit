@@ -13,6 +13,7 @@ import com.example.nesthabit.base.ItemOnClickListener;
 import com.example.nesthabit.model.bean.Nest;
 import com.example.nesthabit.widget.ProgressBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,6 +22,9 @@ import butterknife.ButterKnife;
 public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContentRecyclerAdapter.ViewHolder> {
     List<Nest> nests;
     ItemOnClickListener itemOnClickListener;
+    public final static int LIST_ADD = 0;
+    public final static int LIST_UPDATE = 1;
+    public final static int LIST_DELETE = 2;
 
     public NestContentRecyclerAdapter(ItemOnClickListener itemOnClickListener) {
         this.itemOnClickListener = itemOnClickListener;
@@ -58,11 +62,22 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
         }
     }
 
-    public void changeData(List<Nest> nests) {
+    public void changeData(List<Nest> nests, int state) {
         if (this.nests == null) {
-            this.nests = nests;
-        } else {
-            this.nests.addAll(nests);
+            this.nests = new ArrayList<>();
+        }
+        switch (state) {
+            case LIST_ADD:
+                this.nests.addAll(nests);
+                break;
+            case LIST_UPDATE:
+                this.nests = nests;
+                break;
+            case LIST_DELETE:
+                //TODO delete list
+                break;
+            default:
+                break;
         }
         notifyDataSetChanged();
     }
@@ -79,7 +94,7 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
 
         public ViewHolder(View itemView, ItemOnClickListener itemOnClickListener) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
             this.itemOnClickListener = itemOnClickListener;
         }
 

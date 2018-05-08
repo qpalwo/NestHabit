@@ -24,6 +24,10 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
     private List<Clock> clockInfos = new ArrayList<>();
     private ItemOnClickListener itemOnClickListener;
 
+    public final static int LIST_ADD = 0;
+    public final static int LIST_UPDATE = 1;
+    public final static int LIST_DELETE = 2;
+
     public ClockRecyclerAdapter(ItemOnClickListener itemOnClickListener) {
         this.itemOnClickListener = itemOnClickListener;
     }
@@ -74,7 +78,7 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
         holder.clockItemTime.setText(String.valueOf(clock.getTimeHour())
                 + ":" + String.valueOf(clock.getTimeMin()));
         holder.clockItemSwitch.setChecked(clock.getIsOpen() == 1);
-        if (!holder.clockItemSwitch.isChecked()) {
+        if (holder.clockItemSwitch.isChecked()) {
             if (clock.getTimeHour() >= 6 && clock.getTimeHour() <= 18) {
                 holder.clockItemImg.setImageResource(R.drawable.day);
             } else {
@@ -95,8 +99,23 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
         return clockInfos.size();
     }
 
-    public void upDate(@NonNull List<Clock> clockInfos) {
-        this.clockInfos.addAll(clockInfos);
+    public void changeData(List<Clock> clockInfos, int state) {
+        if (this.clockInfos == null) {
+            this.clockInfos = new ArrayList<>();
+        }
+        switch (state) {
+            case LIST_ADD:
+                this.clockInfos.addAll(clockInfos);
+                break;
+            case LIST_UPDATE:
+                this.clockInfos = clockInfos;
+                break;
+            case LIST_DELETE:
+                //TODO delete list
+                break;
+            default:
+                break;
+        }
         notifyDataSetChanged();
     }
 
