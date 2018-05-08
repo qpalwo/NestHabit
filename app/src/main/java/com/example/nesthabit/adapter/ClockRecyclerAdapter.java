@@ -52,7 +52,7 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
         Switch clockItemSwitch;
         ItemOnClickListener itemOnClickListener;
 
-        public ViewHolder(View itemView, ItemOnClickListener itemOnClickListener) {
+        ViewHolder(View itemView, ItemOnClickListener itemOnClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.itemOnClickListener = itemOnClickListener;
@@ -75,8 +75,10 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         Clock clock = clockInfos.get(position);
         holder.clockItemSlogan.setText(clock.getTitle());
-        holder.clockItemTime.setText(String.valueOf(clock.getTimeHour())
-                + ":" + String.valueOf(clock.getTimeMin()));
+        String time = String.valueOf(clock.getTimeHour())
+                + ":"
+                + String.valueOf(clock.getTimeMin());
+        holder.clockItemTime.setText(time);
         holder.clockItemSwitch.setChecked(clock.getIsOpen() == 1);
         if (holder.clockItemSwitch.isChecked()) {
             if (clock.getTimeHour() >= 6 && clock.getTimeHour() <= 18) {
@@ -108,7 +110,8 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
                 this.clockInfos.addAll(clockInfos);
                 break;
             case LIST_UPDATE:
-                this.clockInfos = clockInfos;
+                this.clockInfos.clear();
+                this.clockInfos.addAll(clockInfos);
                 break;
             case LIST_DELETE:
                 //TODO delete list

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.nesthabit.R;
 import com.example.nesthabit.activity.RemindFriendActivity;
 import com.example.nesthabit.base.BaseFragment;
+import com.example.nesthabit.widget.DeleteDialog;
 
 import java.util.Objects;
 
@@ -53,7 +54,7 @@ public class NestDetailFragment extends BaseFragment {
     }
 
     private void initView() {
-        ViewStub viewStub = getActivity().findViewById(R.id.detail_creator);
+        ViewStub viewStub = Objects.requireNonNull(getActivity()).findViewById(R.id.detail_creator);
         if (viewStub != null) {
             View inflatedView = viewStub.inflate();
         }
@@ -76,7 +77,7 @@ public class NestDetailFragment extends BaseFragment {
                 FragmentTransaction transaction = Objects.requireNonNull(getActivity())
                         .getSupportFragmentManager()
                         .beginTransaction();
-                transaction.replace(R.id.nest_detail_fragment_container,memberEditFragment)
+                transaction.replace(R.id.nest_detail_fragment_container, memberEditFragment)
                         .addToBackStack("nest")
                         .commit();
                 break;
@@ -85,7 +86,30 @@ public class NestDetailFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.detail_exit_item:
+                showDeleteDialog();
                 break;
         }
+    }
+
+    private void showDeleteDialog() {
+        final DeleteDialog dialog = new DeleteDialog.Builder(getActivity())
+                .heightDp(175)
+                .widthDp(270)
+                .style(R.style.Dialog)
+                .cancelTouchOut(false)
+                .view(R.layout.dialog_delete)
+                .text("将该鸟窝解散")
+                .setDialogClickListener(new DeleteDialog.DialogClickListener() {
+                    @Override
+                    public void onCancelClicked() {
+                    }
+
+                    @Override
+                    public void onDeleteClicked() {
+
+                    }
+                })
+                .build();
+        dialog.show();
     }
 }

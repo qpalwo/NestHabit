@@ -13,17 +13,21 @@ import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.ClockSetFragment;
 import com.example.nesthabit.fragment.ClockSetView;
+import com.example.nesthabit.fragment.ClockSoundSetFragment;
+import com.example.nesthabit.model.bean.Sound;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ClockSetActivity extends BaseActivity implements ClockSetView {
+public class ClockSetActivity extends BaseActivity implements ClockSetView,
+        ClockSoundSetFragment.SoundSetCallback {
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    private ClockSetFragment clockSetFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +55,8 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView {
             actionBar.setDisplayShowTitleEnabled(false);
             toolbar.setBackgroundColor(getResources().getColor(R.color.colorPink, null));
         }
-        ClockSetFragment clockSetFragment = new ClockSetFragment();
-        @SuppressLint("CommitTransaction") FragmentTransaction transaction =
+        clockSetFragment = new ClockSetFragment();
+        FragmentTransaction transaction =
                 getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.clock_set_fragment_container, clockSetFragment)
                 .commit();
@@ -71,5 +75,10 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView {
             default:
         }
         return true;
+    }
+
+    @Override
+    public void onSoundSet(Sound sound) {
+        clockSetFragment.setCurrentSound(sound);
     }
 }

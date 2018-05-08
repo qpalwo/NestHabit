@@ -5,6 +5,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.example.nesthabit.model.ClockHelper;
 import com.example.nesthabit.model.UserHelper;
 import com.example.nesthabit.model.bean.Clock;
 import com.example.nesthabit.model.bean.Nest;
+import com.example.nesthabit.model.bean.Sound;
 
 import org.litepal.crud.DataSupport;
 
@@ -45,8 +47,9 @@ public class ClockSetFragment extends BaseFragment {
 
     Unbinder unbinder;
 
-    List<Nest> nestList;
-    Nest currentNest;
+    private List<Nest> nestList;
+    private Nest currentNest;
+    private Sound currentSound;
 
     @BindView(R.id.clock_set_volume_text)
     TextView clockSetVolumeText;
@@ -54,6 +57,8 @@ public class ClockSetFragment extends BaseFragment {
     TimePicker clockSetTimePicker;
     @BindView(R.id.clock_set_title)
     EditText clockSetTitle;
+    @BindView(R.id.clock_set_sound_text)
+    TextView clockSetSoundText;
     @BindView(R.id.clock_set_volume_seekbar)
     SeekBar clockSetVolumeSeekbar;
     @BindView(R.id.clock_set_nap_switch)
@@ -85,6 +90,9 @@ public class ClockSetFragment extends BaseFragment {
         super.onStart();
         setToolbarTitle("添加闹钟");
         initView();
+        if (currentSound != null) {
+            clockSetSoundText.setText(currentSound.getName());
+        }
     }
 
     @Override
@@ -98,7 +106,8 @@ public class ClockSetFragment extends BaseFragment {
         clockSetVolumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                clockSetVolumeText.setText(String.valueOf(progress) + "%");
+                String percent = String.valueOf(progress) + "%";
+                clockSetVolumeText.setText(percent);
             }
 
             @Override
@@ -166,9 +175,15 @@ public class ClockSetFragment extends BaseFragment {
 
             case R.id.clock_set_complete_button:
                 Clock clock = new Clock();
-               // clock.setId();
-                if (clockSetTitle.getText().toString() == "") {
+                // clock.setId();
+                if (TextUtils.isEmpty(clockSetTitle.getText().toString())) {
                     showToast("请填写闹钟的标题", Toast.LENGTH_SHORT);
+                    return;
+                } else if (currentNest == null) {
+                    showToast("请选择鸟窝", Toast.LENGTH_SHORT);
+                    return;
+                } else if (currentSound == null) {
+                    showToast("请选择铃声", Toast.LENGTH_SHORT);
                     return;
                 }
                 clock.setTitle(clockSetTitle.getText().toString());
@@ -182,14 +197,18 @@ public class ClockSetFragment extends BaseFragment {
 //                clock.setOwner(AVUser.getCurrentUser().getUsername());
                 clock.setCreateTime(System.currentTimeMillis());
                 clock.setNest(currentNest);
-//                clock.setMusicId();
+                clock.setMusicId(currentSound.getUri().toString());
 //                clock.setDurationLevel();
 //                clock.setSlogan();
 
                 ClockHelper helper = new ClockHelper();
                 helper.createClockOnNet(clock);
-                onBackPressed();
+                Objects.requireNonNull(getActivity()).finish();
                 break;
         }
+    }
+
+    public void setCurrentSound(Sound currentSound) {
+        this.currentSound = currentSound;
     }
 }

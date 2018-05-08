@@ -120,14 +120,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:text="早起的鸟儿有虫吃"
                         android:textColor="#5c6b73"
                         android:textSize="16sp" />
 
                     <Button
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="8dp"
                         android:background="@mipmap/right" />
 
                 </LinearLayout>

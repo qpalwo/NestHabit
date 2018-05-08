@@ -20,8 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContentRecyclerAdapter.ViewHolder> {
-    List<Nest> nests;
-    ItemOnClickListener itemOnClickListener;
+    private List<Nest> nests;
+    private ItemOnClickListener itemOnClickListener;
     public final static int LIST_ADD = 0;
     public final static int LIST_UPDATE = 1;
     public final static int LIST_DELETE = 2;
@@ -71,7 +71,8 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
                 this.nests.addAll(nests);
                 break;
             case LIST_UPDATE:
-                this.nests = nests;
+                this.nests.clear();
+                this.nests.addAll(nests);
                 break;
             case LIST_DELETE:
                 //TODO delete list
@@ -91,12 +92,10 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
         @BindView(R.id.nest_item_progress)
         ProgressBar nestItemProgress;
 
-        public ViewHolder(View itemView, ItemOnClickListener itemOnClickListener) {
+        ViewHolder(View itemView, ItemOnClickListener itemOnClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener((view) -> {
-                itemOnClickListener.onItemClick(view, getAdapterPosition());
-            });
+            itemView.setOnClickListener((view) -> itemOnClickListener.onItemClick(view, getAdapterPosition()));
         }
 
     }
