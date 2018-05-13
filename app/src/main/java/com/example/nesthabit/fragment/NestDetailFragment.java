@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.nesthabit.R;
 import com.example.nesthabit.activity.RemindFriendActivity;
 import com.example.nesthabit.base.BaseFragment;
+import com.example.nesthabit.model.DateUtil;
 import com.example.nesthabit.model.bean.Nest;
 import com.example.nesthabit.widget.DeleteDialog;
 
@@ -88,7 +89,7 @@ public class NestDetailFragment extends BaseFragment {
             TextView challengeDays = inflatedView.findViewById(R.id.challenge_date_text);
             challengeDays.setText(String.valueOf(nest.getChallengeDays()));
             TextView startDays = inflatedView.findViewById(R.id.start_date_text);
-            startDays.setText(String.valueOf(nest.getStartTime()));
+            startDays.setText(DateUtil.formatDate(nest.getCreatedTime()));
             Switch isLimitMember = inflatedView.findViewById(R.id.limit_number);
             isLimitMember.setChecked(nest.getMembersLimit() != 0);
             if (isLimitMember.isChecked()) {

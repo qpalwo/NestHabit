@@ -8,6 +8,7 @@ import org.litepal.crud.DataSupport;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
@@ -16,7 +17,7 @@ import java.util.TimeZone;
  * Created by 肖宇轩 on 2018/4/3.
  */
 
-public class DataUtil {
+public class DateUtil {
 
     /**
      * 返回unix时间戳
@@ -24,12 +25,41 @@ public class DataUtil {
      * @return
      */
 
+    public static final int DAY_OF_YEAR = 0;
+    public static final int HOUR_OF_DAY = 1;
+    public static final int HOUR_OF_YEAR = 2;
+
     public static long getUnixStamp() {
 
         return System.currentTimeMillis() / 1000;
 
     }
 
+    public static int daysInterval(long time1, long time2) {
+        Date date1 = new Date(time1);
+        Date date2 = new Date(time2);
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+        int day1 = cal1.get(Calendar.DAY_OF_YEAR);
+        int day2 = cal2.get(Calendar.DAY_OF_YEAR);
+        int year1 = cal1.get(Calendar.YEAR);
+        int year2 = cal2.get(Calendar.YEAR);
+        if (year1 != year2) {
+            int timeDistance = 0;
+            for (int i = year1; i < year2; i++) {
+                if (i % 4 == 0 && i % 100 != 0 || i % 400 == 0) {
+                    timeDistance += 366;
+                } else {
+                    timeDistance += 365;
+                }
+            }
+            return timeDistance + (day2 - day1);
+        } else {
+            return day2 - day1;
+        }
+    }
 
     /**
      * 时间戳转化为时间格式
@@ -105,36 +135,38 @@ public class DataUtil {
 
         long time = curTime - timeStamp;
 
-        if (time < 60 && time >= 0) {
-
-            return "刚刚";
-
-        } else if (time >= 60 && time < 3600) {
-
-            return time / 60 + "分钟前";
-
-        } else if (time >= 3600 && time < 3600 * 24) {
-
-            return time / 3600 + "小时前";
-
-        } else if (time >= 3600 * 24 && time < 3600 * 24 * 30) {
-
-            return time / 3600 / 24 + "天前";
-
-        } else if (time >= 3600 * 24 * 30 && time < 3600 * 24 * 30 * 12) {
-
-            return time / 3600 / 24 / 30 + "个月前";
-
-        } else if (time >= 3600 * 24 * 30 * 12) {
-
-            return time / 3600 / 24 / 30 / 12 + "年前";
-
+        if (time >= 0) {
+            if (time < 60) {
+                return "刚刚";
+            } else if (time < 3600) {
+                return time / 60 + "分钟前";
+            } else if (time < 3600 * 24) {
+                return time / 3600 + "小时前";
+            } else if (time < 3600 * 24 * 30) {
+                return time / 3600 / 24 + "天前";
+            } else if (time < 3600 * 24 * 30 * 12) {
+                return time / 3600 / 24 / 30 + "个月前";
+            } else {
+                return time / 3600 / 24 / 30 / 12 + "年前";
+            }
         } else {
-
-            return "刚刚";
-
+            time = -time;
+            if (time < 60 && time >= 0) {
+                return "1分钟后";
+            } else if (time >= 60 && time < 3600) {
+                return time / 60 + "分钟后";
+            } else if (time >= 3600 && time < 3600 * 24) {
+                return time / 3600 + "小时后";
+            } else if (time >= 3600 * 24 && time < 3600 * 24 * 30) {
+                return time / 3600 / 24 + "天后";
+            } else if (time >= 3600 * 24 * 30 && time < 3600 * 24 * 30 * 12) {
+                return time / 3600 / 24 / 30 + "个月后";
+            } else if (time >= 3600 * 24 * 30 * 12) {
+                return time / 3600 / 24 / 30 / 12 + "年后";
+            } else {
+                return "刚刚";
+            }
         }
-
     }
 
     public static Clock getNextClock() {

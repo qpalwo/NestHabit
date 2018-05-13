@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,8 +97,8 @@ public class ClockSoundSetFragment extends BaseFragment {
             do {
                 Sound sound = new Sound(
                         cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX),
-                        manager.getRingtoneUri(cursor.getPosition()));
-                if (sound.getUri() != null) {
+                        manager.getRingtoneUri(cursor.getPosition()).toString());
+                if (!TextUtils.isEmpty(sound.getPath())) {
                     sounds.add(sound);
                 }
             } while (cursor.moveToNext());

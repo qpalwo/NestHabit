@@ -15,6 +15,7 @@ import com.example.nesthabit.activity.ClockSetActivity;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.base.ItemOnClickListener;
 import com.example.nesthabit.broadcast.AlarmSetManager;
+import com.example.nesthabit.model.DateUtil;
 import com.example.nesthabit.model.bean.Clock;
 
 import com.example.nesthabit.adapter.ClockRecyclerAdapter;
@@ -81,6 +82,9 @@ public class ClockFragment extends BaseFragment {
                         clockRecyclerAdapter.notifyDataSetChanged();
                         if (clock.isSaved()) {
                             clock.save();
+                        }
+                        if (clock == DateUtil.getNextClock()) {
+                            AlarmSetManager.setAlarm(getContext());
                         }
                         break;
                     default:

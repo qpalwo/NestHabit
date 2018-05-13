@@ -23,7 +23,12 @@ import com.example.nesthabit.adapter.NestContentPagerAdapter;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.NestFragment;
 import com.example.nesthabit.fragment.PunchAndCommunicateFragment;
+import com.example.nesthabit.model.DateUtil;
 import com.example.nesthabit.model.bean.Nest;
+import com.example.nesthabit.model.bean.Punch;
+import com.example.nesthabit.widget.ProgressBar;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 
@@ -39,7 +44,12 @@ public class NestContentActivity extends BaseActivity {
     TextView successivePunchNumber;
     @BindView(R.id.punch)
     Button punch;
+    @BindView(R.id.total_punch_progress)
+    ProgressBar totalPunchProgress;
+    @BindView(R.id.successive_punch_progress)
+    ProgressBar successivePunchProgress;
     private Nest nest;
+    private Punch punchData;
     private LocalBroadcastManager broadcastManager;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -69,7 +79,22 @@ public class NestContentActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        punch.setText("打 卡");
+        punchData = DataSupport.where("nestId = ?", String.valueOf(nest.getId()))
+                .findFirst(Punch.class);
+        int interval = DateUtil.daysInterval(punchData.getLastPunchDate() * 1000, System.currentTimeMillis());
+        if (interval != 0) {
+            punch.setText("打 卡");
+            if (interval > 1 && punchData.getSuccessPunch() != 0) {
+                punchData.setSuccessPunch(0);
+                punchData.save();
+            }
+        } else {
+            punch.setText("已 打 卡");
+        }
+        totalPunchNumber.setText(String.valueOf(punchData.getAllPunch()));
+        successivePunchNumber.setText(String.valueOf(punchData.getSuccessPunch()));
+        totalPunchProgress.setCurrentProgress((float) punchData.getAllPunch() / nest.getChallengeDays());
+        successivePunchProgress.setCurrentProgress((float) punchData.getSuccessPunch() / nest.getChallengeDays());
     }
 
     @Override
@@ -130,9 +155,11 @@ public class NestContentActivity extends BaseActivity {
 
     @OnClick(R.id.punch)
     public void onViewClicked() {
-        Intent intent = new Intent(this, RecordActivity.class);
-        intent.putExtra(NEST, nest);
-        startActivity(intent);
+        if (DateUtil.daysInterval(punchData.getLastPunchDate() * 1000, System.currentTimeMillis()) != 0) {
+            Intent intent = new Intent(this, RecordActivity.class);
+            intent.putExtra(NEST, nest);
+            startActivity(intent);
+        }
     }
 
 }

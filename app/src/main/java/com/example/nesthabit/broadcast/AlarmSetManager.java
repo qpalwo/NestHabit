@@ -4,11 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
 
 import com.example.nesthabit.model.ACache;
-import com.example.nesthabit.model.DataUtil;
+import com.example.nesthabit.model.DateUtil;
 import com.example.nesthabit.model.bean.Clock;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -53,30 +52,32 @@ public class AlarmSetManager {
 
     private void checkList() {
         if (alarmTime.size() > 0) {
-            long currentTime = DataUtil.getUnixStamp();
+            long currentTime = DateUtil.getUnixStamp();
         }
     }
 
     public static void setAlarm(Context context) {
-        Clock clock = DataUtil.getNextClock();
+        Clock clock = DateUtil.getNextClock();
         Intent intent = new Intent();
         intent.setClassName("com.example.nesthabit",
                 "com.example.nesthabit.broadcast.ClockRemindReceiver");
         long time = Long.MAX_VALUE;
         if (clock != null) {
-            time = DataUtil.getNextClockTime(clock);
-            intent.putExtra("title",clock.getTitle());
+            time = DateUtil.getNextClockTime(clock);
+            intent.putExtra("title", clock.getTitle());
+            Log.d(TAG, "setAlarm: " + clock.getTitle());
             intent.putExtra("time", time);
             intent.putExtra("isVibrate", clock.getIsVibrate() == 1);
             intent.putExtra("sound", clock.getMusicId());
-            intent.putExtra(NEST, clock.getNest());
+            intent.putExtra(NEST, clock.getNestId());
         }
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (am != null && clock != null) {
             am.setExact(AlarmManager.RTC_WAKEUP, time * 1000, pi);
-//            Log.d(TAG, "addClock: " + String.valueOf(DataUtil.getUnixStamp())
-//                    + "\n" + String.valueOf(DataUtil.getNextClockTime()));
+//            Log.d(TAG, "addClock: " + String.valueOf(DateUtil.getUnixStamp())
+//                    + "\n" + String.valueOf(DateUtil.getNextClockTime()));
         }
     }
 

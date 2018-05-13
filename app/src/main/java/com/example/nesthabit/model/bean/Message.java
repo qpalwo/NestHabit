@@ -8,19 +8,24 @@ import org.litepal.crud.DataSupport;
 public class Message extends DataSupport{
 
     public static final int SIGN = 0;
-    public static final int COMMO = 1;
-    private int type;
+    public static final int COMMON = 1;
+    public static final int OWN = 2;
+    public static final int OTHER = 3;
 
+    private int id;
+    private int type;
+    private int userId;
+    private int nestId;
     private long time;
     private String userName;
     private String content;
 
-    public static int getSIGN() {
-        return SIGN;
+    public int getId() {
+        return id;
     }
 
-    public static int getCOMMO() {
-        return COMMO;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getTime() {
@@ -53,5 +58,21 @@ public class Message extends DataSupport{
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getNestId() {
+        return nestId;
+    }
+
+    public void setNestId(int nestId) {
+        this.nestId = nestId;
     }
 }

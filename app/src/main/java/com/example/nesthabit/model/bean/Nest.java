@@ -1,18 +1,10 @@
 package com.example.nesthabit.model.bean;
 
-import android.os.Parcelable;
-
-import com.avos.avoscloud.AVClassName;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVUser;
-import com.example.nesthabit.model.DataUtil;
-
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 
 public class Nest extends DataSupport implements Serializable{
@@ -41,7 +33,7 @@ public class Nest extends DataSupport implements Serializable{
     }
 
 //    public void setId() {
-//        this.id = DataUtil.getUnixStamp() + "";
+//        this.id = DateUtil.getUnixStamp() + "";
 //    }
 
     public String getName() {

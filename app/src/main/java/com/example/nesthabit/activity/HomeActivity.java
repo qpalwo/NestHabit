@@ -1,16 +1,11 @@
 package com.example.nesthabit.activity;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,7 +15,6 @@ import com.example.nesthabit.adapter.HomePagerAdapter;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.broadcast.AlarmSetManager;
-import com.example.nesthabit.broadcast.ClockRemindReceiver;
 import com.example.nesthabit.fragment.ClockFragment;
 import com.example.nesthabit.fragment.NestFragment;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -52,8 +46,6 @@ public class HomeActivity extends BaseActivity implements HomeView {
     RoundedImageView toolbarUserAvatar;
 
     private static final String TAG = "HomeActivity";
-//    LocalBroadcastManager broadcastManager;
-//    ClockRemindReceiver receiver = new ClockRemindReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +58,11 @@ public class HomeActivity extends BaseActivity implements HomeView {
         initPager();
         AlarmSetManager.setAlarm(this);
         selectTab(0);
-//        broadcastManager = LocalBroadcastManager.getInstance(this);
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(AlarmSetManager.ALARM_ACTION);
-//        broadcastManager.registerReceiver(receiver, filter);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        broadcastManager.unregisterReceiver(receiver);
     }
 
     private void initView() {
@@ -150,13 +137,5 @@ public class HomeActivity extends BaseActivity implements HomeView {
     @OnClick(R.id.toolbar_user_avatar)
     public void onViewClicked() {
         drawerLayout.openDrawer(GravityCompat.START);
-//        Intent intent = new Intent();
-//        Intent intent = new Intent(this, ClockRemindReceiver.class);
-//        Intent intent = new Intent(AlarmSetManager.ALARM_ACTION);
-//        intent.setComponent(new ComponentName("com.example.nesthabit",
-//                "com.example.nesthabit.broadcast.ClockRemindReceiver"));
-//        intent.setClass()
-//        broadcastManager.
-//                sendBroadcast(intent);
     }
 }

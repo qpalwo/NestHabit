@@ -29,7 +29,7 @@
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="48dp"
-        android:background="@drawable/button"
+        android:background="@drawable/button_red"
         android:text="发布"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />

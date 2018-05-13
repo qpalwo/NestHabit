@@ -43,10 +43,12 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
             holder.nestName.setText(nest.getName());
         }
         if (nest.getMembersLimit() != 0) {
-            holder.nestItemProgress.setCurrentProgress(nest.getMemberAmount() / nest.getMembersLimit());
+            holder.nestItemProgress.setCurrentProgress((float) nest.getMemberAmount() / nest.getMembersLimit());
         } else {
             holder.nestItemProgress.setCurrentProgress(0.75f);
         }
+        String number = String.valueOf(nest.getMemberAmount()) + "人";
+        holder.nestItemNumber.setText(number);
 //        if (!AVUser.getCurrentUser().getUsername().equals(nest.getOwner())) {
 //            holder.flagMaster.setVisibility(View.INVISIBLE);
 //        }
@@ -91,6 +93,8 @@ public class NestContentRecyclerAdapter extends RecyclerView.Adapter<NestContent
         ImageView flagMaster;
         @BindView(R.id.nest_item_progress)
         ProgressBar nestItemProgress;
+        @BindView(R.id.nest_item_number)
+        TextView nestItemNumber;
 
         ViewHolder(View itemView, ItemOnClickListener itemOnClickListener) {
             super(itemView);

@@ -21,6 +21,7 @@ public class ClockRemindReceiver extends BroadcastReceiver {
         Intent startActivity = new Intent(context, ClockRemindActivity.class);
         startActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity.putExtra("title", intent.getStringExtra("title"));
+        Log.d(TAG, "onReceive: " + intent.getStringExtra("title"));
         startActivity.putExtra("time", intent.getLongExtra("time", 0));
         startActivity.putExtra("isVibrate", intent.getBooleanExtra("isVibrate", false));
         startActivity.putExtra("sound", intent.getStringExtra("sound"));

@@ -15,12 +15,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseActivity;
-import com.example.nesthabit.model.DataUtil;
+import com.example.nesthabit.model.DateUtil;
 import com.example.nesthabit.model.NestHelper;
 import com.example.nesthabit.model.bean.Nest;
+import com.example.nesthabit.model.bean.Punch;
 
 
 import butterknife.BindView;
@@ -109,13 +109,17 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
         nest.setName(createNameEditText.getText().toString());
         nest.setDesc(createIntroductionEditText.getText().toString());
         nest.setChallengeDays(Integer.parseInt(createChallengeDateEditText.getText().toString()));
-        nest.setCreatedTime(DataUtil.getUnixStamp());
+        nest.setCreatedTime(DateUtil.getUnixStamp());
         nest.setIsOpen(1);//创建初默认开放
         // nest.setOwner(AVUser.getCurrentUser().getUsername());
         nest.setCreator(nest.getOwner());
         nest.setMemberAmount(1);
         NestHelper nestHelper = new NestHelper();
         nestHelper.createNestOnNet(nest);
+        Punch punch = new Punch();
+        punch.setNestId(nest.getId());
+//        punch.setUserId();
+        punch.save();
         finish();
     }
 

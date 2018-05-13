@@ -10,8 +10,9 @@ import java.util.List;
  */
 
 public class User extends DataSupport {
+    private int id;
     private String name;
-    private List<Clock> clockList = new ArrayList<>();
-    private List<Nest> nests = new ArrayList<>();
+    private int[] clockId;
+    private int[] nestId;
 
 }

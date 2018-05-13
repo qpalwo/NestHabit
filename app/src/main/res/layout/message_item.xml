@@ -4,18 +4,19 @@
     android:layout_height="64dp"
     android:orientation="horizontal">
 
-    <android.support.v4.widget.CircleImageView
-        android:id="@+id/punch_communicate_avatar"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/message_user_avatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="12dp" />
+        android:layout_margin="12dp"
+        android:src="@drawable/someone_2"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/punch_communicate_name"
+            android:id="@+id/message_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -23,24 +24,24 @@
             android:textColor="@color/colorTextGrey" />
 
         <TextView
-            android:id="@+id/punch_communicate_time"
+            android:id="@+id/message_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginStart="4dp"
-            android:layout_alignEnd="@+id/punch_communicate_name"
+            android:layout_alignEnd="@+id/message_user_name"
             android:textSize="12sp"
             android:textColor="@color/colorTextGrey" />
 
         <TextView
-            android:id="@+id/punch_communicate_text"
+            android:id="@+id/message_content_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FEFEFE"
             android:textSize="14sp"
             android:background="@drawable/bubble_other"
             android:layout_marginTop="4dp"
-            android:layout_below="@+id/punch_communicate_name" />
+            android:layout_below="@+id/message_user_name" />
     </RelativeLayout>
 
 </LinearLayout>

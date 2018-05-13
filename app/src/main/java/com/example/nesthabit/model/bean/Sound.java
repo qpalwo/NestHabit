@@ -5,11 +5,11 @@ import android.net.Uri;
 public class Sound {
 
     private String name;
-    private Uri uri;
+    private String path;
 
-    public Sound(String name, Uri uri) {
+    public Sound(String name, String path) {
         this.name = name;
-        this.uri = uri;
+        this.path = path;
     }
 
     public String getName() {
@@ -20,11 +20,11 @@ public class Sound {
         this.name = name;
     }
 
-    public Uri getUri() {
-        return uri;
+    public String getPath() {
+        return path;
     }
 
-    public void setUri(Uri uri) {
-        this.uri = uri;
+    public void setPath(String path) {
+        this.path = path;
     }
 }

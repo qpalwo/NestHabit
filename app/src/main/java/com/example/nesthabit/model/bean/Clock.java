@@ -1,10 +1,6 @@
 package com.example.nesthabit.model.bean;
 
 
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVUser;
-import com.example.nesthabit.model.DataUtil;
-
 import org.litepal.crud.DataSupport;
 
 public class Clock extends DataSupport{
@@ -16,7 +12,7 @@ public class Clock extends DataSupport{
     private int durationLevel;
     private int volumeLevel;
     private int napLevel;
-    private Nest nest;
+    private int nestId;
     private int willingMusic;
     private int willingText;
     private long createTime;
@@ -34,7 +30,7 @@ public class Clock extends DataSupport{
     }
 //
 //    public void setId() {
-//        this.id = DataUtil.getUnixStamp() + "";
+//        this.id = DateUtil.getUnixStamp() + "";
 //    }
 
     public String getTitle() {
@@ -93,12 +89,12 @@ public class Clock extends DataSupport{
         this.napLevel = mapLevel;
     }
 
-    public Nest getNest() {
-        return nest;
+    public int getNestId() {
+        return nestId;
     }
 
-    public void setNest(Nest nest) {
-        this.nest = nest;
+    public void setNestId(int nestId) {
+        this.nestId = nestId;
     }
 
     public int getWillingMusic() {

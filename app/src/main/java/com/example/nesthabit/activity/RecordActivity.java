@@ -3,7 +3,6 @@ package com.example.nesthabit.activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -12,12 +11,17 @@ import com.example.nesthabit.R;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.NestFragment;
 import com.example.nesthabit.fragment.RecordFragment;
+import com.example.nesthabit.model.DateUtil;
 import com.example.nesthabit.model.bean.Nest;
+import com.example.nesthabit.model.bean.Punch;
 
-public class RecordActivity extends BaseActivity {
+import org.litepal.crud.DataSupport;
+
+public class RecordActivity extends BaseActivity implements RecordFragment.RecordFragmentCallback {
 
     Intent intent;
     Nest nest;
+    Punch punchData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,8 @@ public class RecordActivity extends BaseActivity {
         setContentView(R.layout.activity_record);
         intent = getIntent();
         nest = (Nest) intent.getSerializableExtra(NestFragment.NEST);
+        punchData = DataSupport.where("nestId = ?", String.valueOf(nest.getId()))
+                .findFirst(Punch.class);
         initView();
     }
 
@@ -54,5 +60,13 @@ public class RecordActivity extends BaseActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void upDatePunchData() {
+        punchData.setAllPunch(punchData.getAllPunch() + 1);
+        punchData.setSuccessPunch(punchData.getSuccessPunch() + 1);
+        punchData.setLastPunchDate(DateUtil.getUnixStamp());
+        punchData.save();
     }
 }

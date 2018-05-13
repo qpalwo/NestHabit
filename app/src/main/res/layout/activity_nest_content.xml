@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:cp="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -46,23 +46,20 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/total_punch_text"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/colorTextDark"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
-
-
                     <com.example.nesthabit.widget.ProgressBar
+                        android:id="@+id/total_punch_progress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        cp:width="15dp"
-                        cp:radius="50dp"
-                        cp:type="circle"
                         cp:backCircleColor="#B0BEC5"
                         cp:foreCircleColor="@color/colorPink"
-                        cp:currentProgress="0.75"/>
+                        cp:radius="50dp"
+                        cp:type="circle"
+                        cp:width="15dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -88,21 +85,20 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/successive_punch_text"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="8dp"
                         android:textColor="@color/colorTextDark"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
                     <com.example.nesthabit.widget.ProgressBar
+                        android:id="@+id/successive_punch_progress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        cp:width="15dp"
-                        cp:radius="50dp"
                         cp:backCircleColor="#B0BEC5"
                         cp:foreCircleColor="@color/colorPink"
-                        cp:currentProgress="0.5"
-                        cp:type="circle"/>
+                        cp:radius="50dp"
+                        cp:type="circle"
+                        cp:width="15dp" />
                 </RelativeLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -113,7 +109,7 @@
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/button"
+            android:background="@drawable/button_red"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
     </RelativeLayout>

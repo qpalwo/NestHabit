@@ -1,6 +1,7 @@
 package com.example.nesthabit.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 
+import static com.example.nesthabit.model.DateUtil.convertTimeToFormat;
+import static com.example.nesthabit.model.DateUtil.getNextClockTime;
+
 public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdapter.ViewHolder> {
     private List<Clock> clockInfos = new ArrayList<>();
     private ItemOnClickListener itemOnClickListener;
+    private static final String TAG = "ClockRecyclerAdapter";
 
     public final static int LIST_ADD = 0;
     public final static int LIST_UPDATE = 1;
@@ -131,6 +136,9 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
             }
             clockDay.setText(builder.toString());
         }
+        TextView leftTime = holder.clockItemLefttime;
+        leftTime.setText(convertTimeToFormat(getNextClockTime(clock)));
+        Log.d(TAG, "onBindViewHolder: " + String.valueOf(getNextClockTime(clock)));
     }
 
     @Override
