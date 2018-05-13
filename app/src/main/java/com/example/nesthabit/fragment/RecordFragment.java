@@ -58,7 +58,7 @@ public class RecordFragment extends BaseFragment {
         if (TextUtils.isEmpty(record)) {
             showToast("record can't be null", Toast.LENGTH_SHORT);
         } else {
-            callback.upDatePunchData();
+            callback.upDatePunchData(record);
             ReleaseSuccessFragment fragment = new ReleaseSuccessFragment();
             FragmentTransaction transaction = Objects.requireNonNull(getActivity())
                     .getSupportFragmentManager()
@@ -69,6 +69,6 @@ public class RecordFragment extends BaseFragment {
     }
 
     public interface RecordFragmentCallback {
-        void upDatePunchData();
+        void upDatePunchData(String record);
     }
 }

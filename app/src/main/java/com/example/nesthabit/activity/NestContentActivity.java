@@ -24,6 +24,7 @@ import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.NestFragment;
 import com.example.nesthabit.fragment.PunchAndCommunicateFragment;
 import com.example.nesthabit.model.DateUtil;
+import com.example.nesthabit.model.bean.Message;
 import com.example.nesthabit.model.bean.Nest;
 import com.example.nesthabit.model.bean.Punch;
 import com.example.nesthabit.widget.ProgressBar;
@@ -31,12 +32,13 @@ import com.example.nesthabit.widget.ProgressBar;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NestContentActivity extends BaseActivity {
+public class NestContentActivity extends BaseActivity implements PunchAndCommunicateFragment.PunchFragmentCallback {
 
     @BindView(R.id.total_punch_number)
     TextView totalPunchNumber;
@@ -162,4 +164,9 @@ public class NestContentActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public List<Message> getMessages() {
+        return DataSupport.where("nestId = ?", String.valueOf(nest.getId()))
+                .find(Message.class);
+    }
 }

@@ -56,7 +56,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+        if (messageList != null) {
+            return messageList.get(position).getType();
+        }
+        return Message.COMMON;
     }
 
     public void changeData(List<Message> messages) {

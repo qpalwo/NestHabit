@@ -78,7 +78,7 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView,
         return true;
     }
 
-    @Override
+     @Override
     public void onSoundSet(Sound sound) {
         clockSetFragment.setCurrentSound(sound);
     }

@@ -12,6 +12,7 @@ import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.NestFragment;
 import com.example.nesthabit.fragment.RecordFragment;
 import com.example.nesthabit.model.DateUtil;
+import com.example.nesthabit.model.bean.Message;
 import com.example.nesthabit.model.bean.Nest;
 import com.example.nesthabit.model.bean.Punch;
 
@@ -23,6 +24,7 @@ public class RecordActivity extends BaseActivity implements RecordFragment.Recor
     int nestId;
     Nest nest;
     Punch punchData;
+    Message message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +66,18 @@ public class RecordActivity extends BaseActivity implements RecordFragment.Recor
     }
 
     @Override
-    public void upDatePunchData() {
+    public void upDatePunchData(String record) {
         punchData.setAllPunch(punchData.getAllPunch() + 1);
         punchData.setSuccessPunch(punchData.getSuccessPunch() + 1);
         punchData.setLastPunchDate(DateUtil.getUnixStamp());
         punchData.save();
+        message = new Message();
+        message.setContent(record);
+        message.setNestId(nestId);
+        message.setTime(DateUtil.getUnixStamp());
+        message.setUserName("li");
+        message.setType(Message.COMMON);
+//        message.setUserId();
+        message.save();
     }
 }
