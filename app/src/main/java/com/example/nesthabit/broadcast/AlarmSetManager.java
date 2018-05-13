@@ -5,9 +5,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import com.example.nesthabit.model.ACache;
 import com.example.nesthabit.model.DataUtil;
+import com.example.nesthabit.model.bean.Clock;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -16,7 +18,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.example.nesthabit.activity.NestContentActivity.NEST;
+
 public class AlarmSetManager {
+    private static final String TAG = "AlarmSetManager";
+    public static final String ALARM_ACTION = "unique.NestHabit.action.CLOCK_REMIND";
+
     private static class InstanceHolder {
         public static AlarmSetManager alarmSetManager = new AlarmSetManager();
     }
@@ -50,12 +57,30 @@ public class AlarmSetManager {
         }
     }
 
-    public void setAlarm(long time) {
-
+    public static void setAlarm(Context context) {
+        Clock clock = DataUtil.getNextClock();
+        Intent intent = new Intent();
+        intent.setClassName("com.example.nesthabit",
+                "com.example.nesthabit.broadcast.ClockRemindReceiver");
+        long time = Long.MAX_VALUE;
+        if (clock != null) {
+            time = DataUtil.getNextClockTime(clock);
+            intent.putExtra("title",clock.getTitle());
+            intent.putExtra("time", time);
+            intent.putExtra("isVibrate", clock.getIsVibrate() == 1);
+            intent.putExtra("sound", clock.getMusicId());
+            intent.putExtra(NEST, clock.getNest());
+        }
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (am != null && clock != null) {
+            am.setExact(AlarmManager.RTC_WAKEUP, time * 1000, pi);
+//            Log.d(TAG, "addClock: " + String.valueOf(DataUtil.getUnixStamp())
+//                    + "\n" + String.valueOf(DataUtil.getNextClockTime()));
+        }
     }
 
     private class AlarmManagerUtil {
-        public static final String ALARM_ACTION = "unique.NestHabit.action.CLOCK_REMIND";
 
         public void setAlarmTime(Context context, long timeInMillis, Intent intent) {
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

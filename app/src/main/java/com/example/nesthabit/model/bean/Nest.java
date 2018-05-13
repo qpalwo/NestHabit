@@ -16,7 +16,7 @@ import java.util.Observable;
 
 
 public class Nest extends DataSupport implements Serializable{
-    //private String id;
+    private int id;
     private String name;
     private String desc;
     private int membersLimit;
@@ -32,14 +32,14 @@ public class Nest extends DataSupport implements Serializable{
     private List<Message> signmsgs = new ArrayList<>();
     private List<Message> commumsgs = new ArrayList<>();
 
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-//
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 //    public void setId() {
 //        this.id = DataUtil.getUnixStamp() + "";
 //    }

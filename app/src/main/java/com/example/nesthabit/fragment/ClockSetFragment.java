@@ -1,11 +1,17 @@
 package com.example.nesthabit.fragment;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +22,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.R;
 import com.example.nesthabit.adapter.NestSelectAdapter;
 import com.example.nesthabit.base.BaseFragment;
-import com.example.nesthabit.base.CallBack;
 import com.example.nesthabit.base.ItemOnClickListener;
+import com.example.nesthabit.broadcast.AlarmSetManager;
 import com.example.nesthabit.model.ClockHelper;
-import com.example.nesthabit.model.UserHelper;
+import com.example.nesthabit.model.DataUtil;
 import com.example.nesthabit.model.bean.Clock;
 import com.example.nesthabit.model.bean.Nest;
 import com.example.nesthabit.model.bean.Sound;
@@ -50,6 +55,10 @@ public class ClockSetFragment extends BaseFragment {
     private List<Nest> nestList;
     private Nest currentNest;
     private Sound currentSound;
+    private int durationLevel = 0;
+    private int isVibrate = 0;
+
+    private static final String TAG = "ClockSetFragment";
 
     @BindView(R.id.clock_set_volume_text)
     TextView clockSetVolumeText;
@@ -82,6 +91,8 @@ public class ClockSetFragment extends BaseFragment {
         if (rootView != null) {
             unbinder = ButterKnife.bind(this, rootView);
         }
+        nestList = DataSupport.findAll(Nest.class);
+        clockSetTimePicker.setIs24HourView(true);
         return rootView;
     }
 
@@ -102,6 +113,10 @@ public class ClockSetFragment extends BaseFragment {
     }
 
     private void initView() {
+        if (nestList != null && !nestList.isEmpty()) {
+            currentNest = nestList.get(0);
+            clockSetNestName.setText(currentNest.getName());
+        }
         clockSetRemindTextSwitch.setChecked(true);
         clockSetVolumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -125,20 +140,35 @@ public class ClockSetFragment extends BaseFragment {
             R.id.clock_set_nest_item, R.id.clock_set_sound_item})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            // 设置闹钟的日期
             case R.id.clock_days_0:
-            case R.id.clock_days_1:
-            case R.id.clock_days_2:
-            case R.id.clock_days_3:
-            case R.id.clock_days_4:
-            case R.id.clock_days_5:
-            case R.id.clock_days_6:
-                if (view.isActivated()) {
-                    view.setActivated(false);
-                } else {
-                    view.setActivated(true);
-                }
+                durationLevel ^= 0x01;
+                changeViewActivated(view);
                 break;
-
+            case R.id.clock_days_1:
+                durationLevel ^= 0x02;
+                changeViewActivated(view);
+                break;
+            case R.id.clock_days_2:
+                durationLevel ^= 0x04;
+                changeViewActivated(view);
+                break;
+            case R.id.clock_days_3:
+                durationLevel ^= 0x08;
+                changeViewActivated(view);
+                break;
+            case R.id.clock_days_4:
+                durationLevel ^= 0x10;
+                changeViewActivated(view);
+                break;
+            case R.id.clock_days_5:
+                durationLevel ^= 0x20;
+                changeViewActivated(view);
+                break;
+            case R.id.clock_days_6:
+                durationLevel ^= 0x40;
+                changeViewActivated(view);
+                break;
 
             case R.id.clock_set_sound_item:
                 ClockSoundSetFragment soundSetFragment = new ClockSoundSetFragment();
@@ -150,7 +180,6 @@ public class ClockSetFragment extends BaseFragment {
                 break;
 
             case R.id.clock_set_nest_item:
-                nestList = DataSupport.findAll(Nest.class);
                 if (nestList == null) {
                     nestList = new ArrayList<>();
                 }
@@ -170,45 +199,72 @@ public class ClockSetFragment extends BaseFragment {
                 });
                 recyclerView.setAdapter(adapter);
                 dialog.setContentView(dialogView);
+//                View behaviorView = Objects.requireNonNull(dialog.getWindow()).findViewById(
+//                        android.support.design.R.id.design_bottom_sheet);
+//                BottomSheetBehavior.from(view).setPeekHeight(1600);
                 dialog.show();
                 break;
 
             case R.id.clock_set_complete_button:
-                Clock clock = new Clock();
-                // clock.setId();
-                if (TextUtils.isEmpty(clockSetTitle.getText().toString())) {
-                    showToast("请填写闹钟的标题", Toast.LENGTH_SHORT);
-                    return;
-                } else if (currentNest == null) {
-                    showToast("请选择鸟窝", Toast.LENGTH_SHORT);
-                    return;
-                } else if (currentSound == null) {
-                    showToast("请选择铃声", Toast.LENGTH_SHORT);
-                    return;
-                }
-                clock.setTitle(clockSetTitle.getText().toString());
-                clock.setIsOpen(1);
-                clock.setTimeHour(clockSetTimePicker.getHour());
-                clock.setTimeMin(clockSetTimePicker.getMinute());
-                clock.setVolumeLevel(clockSetVolumeSeekbar.getProgress());
-                clock.setNapLevel(clockSetNapSwitch.isChecked() ? 1 : 0);
-                clock.setWillingMusic(clockSetRemindVoiceSwitch.isChecked() ? 1 : 0);
-                clock.setWillingText(clockSetRemindTextSwitch.isChecked() ? 1 : 0);
-//                clock.setOwner(AVUser.getCurrentUser().getUsername());
-                clock.setCreateTime(System.currentTimeMillis());
-                clock.setNest(currentNest);
-                clock.setMusicId(currentSound.getUri().toString());
-//                clock.setDurationLevel();
-//                clock.setSlogan();
+                addClock();
+                break;
 
-                ClockHelper helper = new ClockHelper();
-                helper.createClockOnNet(clock);
-                Objects.requireNonNull(getActivity()).finish();
+            default:
                 break;
         }
     }
 
     public void setCurrentSound(Sound currentSound) {
         this.currentSound = currentSound;
+    }
+
+    public void setIsVibrate(int isVibrate) {
+        this.isVibrate = isVibrate;
+    }
+
+    private void changeViewActivated(View view) {
+        if (view.isActivated()) {
+            view.setActivated(false);
+        } else {
+            view.setActivated(true);
+        }
+    }
+
+    private void addClock() {
+        Clock clock = new Clock();
+        // clock.setId();
+        if (TextUtils.isEmpty(clockSetTitle.getText().toString())) {
+            showToast("请填写闹钟的标题", Toast.LENGTH_SHORT);
+            return;
+        } else if (currentNest == null) {
+            showToast("请选择鸟窝", Toast.LENGTH_SHORT);
+            return;
+        } else if (currentSound == null) {
+            showToast("请选择铃声", Toast.LENGTH_SHORT);
+            return;
+        } else if (durationLevel == 0) {
+            showToast("请选择闹钟的日期", Toast.LENGTH_SHORT);
+            return;
+        }
+        clock.setTitle(clockSetTitle.getText().toString());
+        clock.setIsOpen(1);
+        clock.setTimeHour(clockSetTimePicker.getHour());
+        clock.setTimeMin(clockSetTimePicker.getMinute());
+        clock.setVolumeLevel(clockSetVolumeSeekbar.getProgress());
+        clock.setNapLevel(clockSetNapSwitch.isChecked() ? 1 : 0);
+        clock.setWillingMusic(clockSetRemindVoiceSwitch.isChecked() ? 1 : 0);
+        clock.setWillingText(clockSetRemindTextSwitch.isChecked() ? 1 : 0);
+        clock.setCreateTime(DataUtil.getUnixStamp());
+        clock.setNest(currentNest);
+        clock.setMusicId(currentSound.getUri().toString());
+        clock.setDurationLevel(durationLevel);
+        clock.setIsVibrate(isVibrate);
+//                clock.setSlogan();
+//                clock.setOwner(AVUser.getCurrentUser().getUsername());
+        ClockHelper helper = new ClockHelper();
+        helper.createClockOnNet(clock);
+
+        AlarmSetManager.setAlarm(getContext());
+        Objects.requireNonNull(getActivity()).finish();
     }
 }

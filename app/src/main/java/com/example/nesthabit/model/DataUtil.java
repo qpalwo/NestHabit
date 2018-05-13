@@ -1,6 +1,16 @@
 package com.example.nesthabit.model;
 
+import android.util.Log;
+
+import com.example.nesthabit.model.bean.Clock;
+
+import org.litepal.crud.DataSupport;
+
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by 肖宇轩 on 2018/4/3.
@@ -66,11 +76,11 @@ public class DataUtil {
 
         String time = null;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         String date = sdf.format(timeStamp * 1000);
 
-        String[] split = date.split("\\s");
+        String[] split = date.split(" ");
 
         if (split.length > 1) {
 
@@ -127,5 +137,139 @@ public class DataUtil {
 
     }
 
+    public static Clock getNextClock() {
+        List<Clock> clockList = DataSupport.findAll(Clock.class);
+        if (clockList.isEmpty()) {
+            return null;
+        }
+        Clock nextClock = null;
+        long nextClockTime = Long.MAX_VALUE;
+        long flagTime = nextClockTime;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        for (Clock clock : clockList) {
+            if (clock.getIsOpen() == 1) {
+                long currentTime = getUnixStamp();
+                int durationLevel = clock.getDurationLevel();
+                int mask = 0x01;
+                mask <<= dayOfWeek - 1;
+
+                if ((durationLevel & mask) != 0
+                        && clock.getTimeHour() >= hour
+                        && clock.getTimeMin() > minute) {
+                    flagTime = currentTime + (clock.getTimeHour() - hour) * 3600
+                            + (clock.getTimeMin() - minute) * 60;
+                } else {
+                    currentTime += (23 - hour) * 3600 + (60 - minute) * 60;
+                    for (int i = 0; i < 7; i++) {
+                        mask <<= 1;
+                        if (mask > 0x40) {
+                            mask = 0x01;
+                        }
+                        if ((durationLevel & mask) != 0) {
+                            flagTime = currentTime + clock.getTimeHour() * 3600
+                                    + clock.getTimeMin() * 60;
+                            break;
+                        } else {
+                            currentTime += 24 * 3600;
+                        }
+                    }
+                }
+
+                if (flagTime < nextClockTime) {
+                    nextClockTime = flagTime;
+                    nextClock = clock;
+                }
+            }
+        }
+        return nextClock;
+    }
+
+    public static long getNextClockTime(Clock clock) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        long flagTime = Long.MAX_VALUE;
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+        long currentTime = getUnixStamp();
+        int durationLevel = clock.getDurationLevel();
+        int mask = 0x01;
+        mask <<= dayOfWeek - 1;
+
+        if ((durationLevel & mask) != 0
+                && clock.getTimeHour() >= hour
+                && clock.getTimeMin() > minute) {
+            flagTime = currentTime + (clock.getTimeHour() - hour) * 3600
+                    + (clock.getTimeMin() - minute) * 60;
+        } else {
+            currentTime += (23 - hour) * 3600 + (60 - minute) * 60;
+            for (int i = 0; i < 7; i++) {
+                mask <<= 1;
+                if (mask > 0x40) {
+                    mask = 0x01;
+                }
+                if ((durationLevel & mask) != 0) {
+                    flagTime = currentTime + clock.getTimeHour() * 3600
+                            + clock.getTimeMin() * 60;
+                    break;
+                } else {
+                    currentTime += 24 * 3600;
+                }
+            }
+        }
+        return flagTime - second;
+    }
+
+    public static long getNextClockTime() {
+        long nextClockTime = Long.MAX_VALUE;
+        long flagTime = nextClockTime;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+        List<Clock> clockList = DataSupport.findAll(Clock.class);
+        for (Clock clock : clockList) {
+            if (clock.getIsOpen() == 1) {
+                long currentTime = getUnixStamp();
+                int durationLevel = clock.getDurationLevel();
+                int mask = 0x01;
+                mask <<= dayOfWeek - 1;
+
+                if ((durationLevel & mask) != 0
+                        && clock.getTimeHour() >= hour
+                        && clock.getTimeMin() > minute) {
+                    flagTime = currentTime + (clock.getTimeHour() - hour) * 3600
+                            + (clock.getTimeMin() - minute) * 60;
+                } else {
+                    currentTime += (23 - hour) * 3600 + (60 - minute) * 60;
+                    for (int i = 0; i < 7; i++) {
+                        mask <<= 1;
+                        if (mask > 0x40) {
+                            mask = 0x01;
+                        }
+                        if ((durationLevel & mask) != 0) {
+                            flagTime = currentTime + clock.getTimeHour() * 3600
+                                    + clock.getTimeMin() * 60;
+                            break;
+                        } else {
+                            currentTime += 24 * 3600;
+                        }
+                    }
+                }
+
+                if (flagTime < nextClockTime) {
+                    nextClockTime = flagTime;
+                }
+            }
+        }
+        return nextClockTime - second;
+    }
 
 }

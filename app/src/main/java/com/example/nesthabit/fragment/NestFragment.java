@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class NestFragment extends BaseFragment implements NestView {
     FloatingActionButton nestFloatButton;
     NestContentRecyclerAdapter adapter;
     List<Nest> nestList;
+
+    private static final String TAG = "NestFragment";
     public static final String NEST = "NEST";
 
     Unbinder unbinder;
@@ -103,7 +106,8 @@ public class NestFragment extends BaseFragment implements NestView {
 
     private void upDateList() {
         if (adapter != null) {
-            adapter.changeData(DataSupport.findAll(Nest.class), NestContentRecyclerAdapter.LIST_UPDATE);
+            nestList = DataSupport.findAll(Nest.class);
+            adapter.changeData(nestList, NestContentRecyclerAdapter.LIST_UPDATE);
         }
     }
 }

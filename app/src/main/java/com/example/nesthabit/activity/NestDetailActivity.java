@@ -1,27 +1,26 @@
 package com.example.nesthabit.activity;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewStub;
-import android.widget.TextView;
 
 import com.example.nesthabit.R;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.example.nesthabit.base.BaseActivity;
 import com.example.nesthabit.fragment.NestDetailFragment;
+import com.example.nesthabit.model.bean.Nest;
 
-public class NestDetailActivity extends BaseActivity {
+import org.litepal.crud.DataSupport;
 
+import butterknife.ButterKnife;
 
+public class NestDetailActivity extends BaseActivity implements NestDetailFragment.NestDeleteCallback {
+
+    private Nest nest;
 
     private static final String TAG = "NestDetailActivity";
 
@@ -30,6 +29,7 @@ public class NestDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nest_detail);
         ButterKnife.bind(this);
+        nest = (Nest) getIntent().getSerializableExtra(NestContentActivity.NEST);
         initView();
     }
 
@@ -65,4 +65,17 @@ public class NestDetailActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    public void onNestDelete() {
+        DataSupport.delete(Nest.class, nest.getId());
+        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
+        Intent intent = new Intent(NestContentActivity.FINISH);
+        broadcastManager.sendBroadcast(intent);
+        finish();
+    }
+
+    @Override
+    public Nest getNest() {
+        return nest;
+    }
 }

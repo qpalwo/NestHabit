@@ -46,27 +46,22 @@
         <!--<activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />-->
         <!-- 反馈组件 END -->
 
-        <activity
-            android:name=".activity.NestContentActivity"
-            android:exported="true" />
+        <activity android:name=".activity.NestContentActivity" />
         <activity android:name=".activity.RankActivity" />
-        <activity
-            android:name=".activity.NestDetailActivity"
-            android:exported="true" />
+        <activity android:name=".activity.NestDetailActivity" />
         <activity android:name=".activity.ClockRemindActivity" />
         <activity android:name=".activity.NestCreateActivity" />
         <activity android:name=".activity.RemindFriendActivity" />
+        <activity android:name=".activity.RecordActivity" />
 
         <receiver
             android:name=".broadcast.ClockRemindReceiver"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="unique.NestHabit.action.CLOCK_REMIND" />
-            </intent-filter>
+            android:exported="false">
+            <!--<intent-filter>-->
+                <!--<action android:name="unique.NestHabit.action.CLOCK_REMIND" />-->
+            <!--</intent-filter>-->
         </receiver>
 
-        <activity android:name=".activity.RecordActivity"></activity>
     </application>
-
 </manifest>

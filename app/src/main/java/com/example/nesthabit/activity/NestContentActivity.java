@@ -1,13 +1,18 @@
 package com.example.nesthabit.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -34,25 +39,43 @@ public class NestContentActivity extends BaseActivity {
     TextView successivePunchNumber;
     @BindView(R.id.punch)
     Button punch;
-    private Intent intent;
     private Nest nest;
+    private LocalBroadcastManager broadcastManager;
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
 
+    private static final String TAG = "NestContentActivity";
     public static final String NEST = "NEST";
+    public static final String FINISH = "com.example.nesthabit.activity.nestcontentactivity.FINISH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nest_content);
         ButterKnife.bind(this);
-        intent = getIntent();
+        Intent intent = getIntent();
         nest = (Nest) intent.getSerializableExtra(NEST);
         initView();
+        broadcastManager = LocalBroadcastManager.getInstance(this);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(FINISH);
+        broadcastManager.registerReceiver(broadcastReceiver, filter);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         punch.setText("打 卡");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        broadcastManager.unregisterReceiver(broadcastReceiver);
     }
 
     @Override
@@ -97,6 +120,7 @@ public class NestContentActivity extends BaseActivity {
                 break;
             case R.id.more_menu_content:
                 Intent intentDetail = new Intent(this, NestDetailActivity.class);
+                intentDetail.putExtra(NEST, nest);
                 startActivity(intentDetail);
                 break;
             default:
@@ -110,4 +134,5 @@ public class NestContentActivity extends BaseActivity {
         intent.putExtra(NEST, nest);
         startActivity(intent);
     }
+
 }

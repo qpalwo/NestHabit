@@ -1,6 +1,5 @@
 package com.example.nesthabit.adapter;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +15,12 @@ import com.example.nesthabit.model.bean.Clock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdapter.ViewHolder> {
     private List<Clock> clockInfos = new ArrayList<>();
@@ -32,7 +34,7 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
         this.itemOnClickListener = itemOnClickListener;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.clock_item_img)
         ImageView clockItemImg;
@@ -58,9 +60,15 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
             this.itemOnClickListener = itemOnClickListener;
         }
 
-        @Override
-        public void onClick(View v) {
-            itemOnClickListener.onItemClick(v, getAdapterPosition());
+        @OnClick({R.id.clock_item_switch})
+        public void onViewClicked(View view) {
+            itemOnClickListener.onItemClick(view, getAdapterPosition());
+        }
+
+        @OnLongClick({R.id.clock_item_checked})
+        public boolean onViewLongClicked(View view) {
+            itemOnClickListener.onItemClick(view, getAdapterPosition());
+            return true;
         }
     }
 
@@ -75,24 +83,53 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         Clock clock = clockInfos.get(position);
         holder.clockItemSlogan.setText(clock.getTitle());
-        String time = String.valueOf(clock.getTimeHour())
+        String time = String.format(new Locale("en"), "%02d", clock.getTimeHour())
                 + ":"
-                + String.valueOf(clock.getTimeMin());
+                + String.format(new Locale("en"), "%02d", clock.getTimeMin());
         holder.clockItemTime.setText(time);
         holder.clockItemSwitch.setChecked(clock.getIsOpen() == 1);
         if (holder.clockItemSwitch.isChecked()) {
+            holder.itemView.setAlpha(1f);
             if (clock.getTimeHour() >= 6 && clock.getTimeHour() <= 18) {
                 holder.clockItemImg.setImageResource(R.drawable.day);
             } else {
                 holder.clockItemImg.setImageResource(R.drawable.night);
             }
         } else {
-            holder.itemView.setAlpha((float) 0.6);
+            holder.itemView.setAlpha(0.6f);
             if (clock.getTimeHour() >= 6 && clock.getTimeHour() <= 18) {
                 holder.clockItemImg.setImageResource(R.drawable.day_unchecked);
             } else {
                 holder.clockItemImg.setImageResource(R.drawable.night_unchecked);
             }
+        }
+        TextView clockDay = holder.clockItemDay;
+        StringBuilder builder = new StringBuilder();
+        if (clock.getDurationLevel() == 0x7f) {
+            clockDay.setText("每天");
+        } else {
+            if ((clock.getDurationLevel() & 0x01) != 0) {
+                builder.append("周日 ");
+            }
+            if ((clock.getDurationLevel() & 0x02) != 0) {
+                builder.append("周一 ");
+            }
+            if ((clock.getDurationLevel() & 0x04) != 0) {
+                builder.append("周二 ");
+            }
+            if ((clock.getDurationLevel() & 0x08) != 0) {
+                builder.append("周三 ");
+            }
+            if ((clock.getDurationLevel() & 0x10) != 0) {
+                builder.append("周四 ");
+            }
+            if ((clock.getDurationLevel() & 0x20) != 0) {
+                builder.append("周五 ");
+            }
+            if ((clock.getDurationLevel() & 0x40) != 0) {
+                builder.append("周六 ");
+            }
+            clockDay.setText(builder.toString());
         }
     }
 
@@ -123,3 +160,4 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
     }
 
 }
+

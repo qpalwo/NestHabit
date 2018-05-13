@@ -32,6 +32,7 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppThemeRed);
         setContentView(R.layout.activity_clock_set);
         ButterKnife.bind(this);
 
@@ -80,5 +81,10 @@ public class ClockSetActivity extends BaseActivity implements ClockSetView,
     @Override
     public void onSoundSet(Sound sound) {
         clockSetFragment.setCurrentSound(sound);
+    }
+
+    @Override
+    public void setIsVibrate(int isVibrate) {
+        clockSetFragment.setIsVibrate(isVibrate);
     }
 }

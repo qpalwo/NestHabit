@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.example.nesthabit.R;
@@ -73,7 +75,7 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
                     nestAmountLayout.setVisibility(View.GONE);
-                }else {
+                } else {
                     nestAmountLayout.setVisibility(View.VISIBLE);
                 }
             }
@@ -84,9 +86,23 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
 
     private void getNestInfo() {
         Nest nest = new Nest();
+        if (TextUtils.isEmpty(createNameEditText.getText().toString())) {
+            showToast("请输入鸟窝名称", Toast.LENGTH_SHORT);
+            return;
+        } else if (TextUtils.isEmpty(createIntroductionEditText.getText().toString())) {
+            showToast("请输入鸟窝简介", Toast.LENGTH_SHORT);
+            return;
+        } else if (TextUtils.isEmpty(createChallengeDateEditText.getText().toString())) {
+            showToast("请输入挑战天数", Toast.LENGTH_SHORT);
+            return;
+        }
         if (!limitNumber.isChecked()) {
             nest.setMembersLimit(0);
         } else {
+            if (TextUtils.isEmpty(createMemberNumberEditText.getText().toString())) {
+                showToast("请输入成员数量", Toast.LENGTH_SHORT);
+                return;
+            }
             nest.setMembersLimit(Integer.parseInt(createMemberNumberEditText.getText().toString().trim()));
         }
         //nest.setId();
@@ -95,12 +111,12 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
         nest.setChallengeDays(Integer.parseInt(createChallengeDateEditText.getText().toString()));
         nest.setCreatedTime(DataUtil.getUnixStamp());
         nest.setIsOpen(1);//创建初默认开放
-       // nest.setOwner(AVUser.getCurrentUser().getUsername());
+        // nest.setOwner(AVUser.getCurrentUser().getUsername());
         nest.setCreator(nest.getOwner());
         nest.setMemberAmount(1);
         NestHelper nestHelper = new NestHelper();
         nestHelper.createNestOnNet(nest);
-
+        finish();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -126,7 +142,6 @@ public class NestCreateActivity extends BaseActivity implements NestCreateView {
                 break;
             case R.id.create_submit:
                 getNestInfo();
-                finish();
                 break;
         }
     }

@@ -8,6 +8,13 @@
         <item name="colorAccent">#FF8A85</item>
     </style>
 
+    <style name="AppThemeRed" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FF8A85</item>
+        <item name="colorPrimaryDark">#FF8A85</item>
+        <item name="colorAccent">#FF8A85</item>
+    </style>
+
     <!-- 修改tablayout的背景色，提示线的颜色，字体颜色等-->
     <style name="Base.Widget.Design.TabLayout" parent="android:Widget" tools:ignore="PrivateResource">
         <item name="tabBackground">@color/colorYellow</item>

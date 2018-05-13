@@ -25,6 +25,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -43,7 +44,7 @@ public class ClockSoundSetFragment extends BaseFragment {
     private SystemSoundAdapter adapter;
     private SoundSetCallback soundSetCallback;
 
-    private List<Sound> soundList = new ArrayList<>();
+    private List<Sound> soundList;
     private Sound selectedSound;
 
     @Override
@@ -58,7 +59,10 @@ public class ClockSoundSetFragment extends BaseFragment {
         if (rootView != null) {
             unbinder = ButterKnife.bind(this, rootView);
         }
-        getSystemSound();
+        soundList = getSystemSound(getActivity());
+        if (!soundList.isEmpty()) {
+            soundSetCallback.onSoundSet(soundList.get(0));
+        }
         initView();
         return rootView;
     }
@@ -83,8 +87,9 @@ public class ClockSoundSetFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    private void getSystemSound() {
-        RingtoneManager manager = new RingtoneManager(getActivity());
+    public static List<Sound> getSystemSound(Context context) {
+        RingtoneManager manager = new RingtoneManager(context);
+        List<Sound> sounds = new ArrayList<>();
         manager.setType(RingtoneManager.TYPE_ALL);
         Cursor cursor = manager.getCursor();
         if (cursor.moveToFirst()) {
@@ -93,10 +98,11 @@ public class ClockSoundSetFragment extends BaseFragment {
                         cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX),
                         manager.getRingtoneUri(cursor.getPosition()));
                 if (sound.getUri() != null) {
-                    soundList.add(sound);
+                    sounds.add(sound);
                 }
             } while (cursor.moveToNext());
         }
+        return sounds;
     }
 
     private void initView() {
@@ -114,7 +120,17 @@ public class ClockSoundSetFragment extends BaseFragment {
                 DividerItemDecoration.VERTICAL));
     }
 
+    @OnClick(R.id.clock_sound_vibrate)
+    public void onViewClicked() {
+        if (clockSoundVibrate.isChecked()) {
+            soundSetCallback.setIsVibrate(1);
+        } else {
+            soundSetCallback.setIsVibrate(0);
+        }
+    }
+
     public interface SoundSetCallback {
         void onSoundSet(Sound sound);
+        void setIsVibrate(int isVibrate);
     }
 }

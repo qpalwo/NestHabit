@@ -8,11 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 
 import com.example.nesthabit.R;
 import com.example.nesthabit.activity.ClockSetActivity;
 import com.example.nesthabit.base.BaseFragment;
 import com.example.nesthabit.base.ItemOnClickListener;
+import com.example.nesthabit.broadcast.AlarmSetManager;
 import com.example.nesthabit.model.bean.Clock;
 
 import com.example.nesthabit.adapter.ClockRecyclerAdapter;
@@ -63,10 +65,25 @@ public class ClockFragment extends BaseFragment {
         ItemOnClickListener itemOnClickListener = new ItemOnClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                Clock clock = clockList.get(position);
                 switch (view.getId()) {
                     case R.id.clock_item_checked:
+                        showDeleteDialog(clock);
                         break;
                     case R.id.clock_item_switch:
+                        if (clock.getIsOpen() == 1) {
+                            clock.setIsOpen(0);
+                        } else {
+                            clock.setIsOpen(1);
+                        }
+                        Switch clockItemSwitch = (Switch) view;
+                        clockItemSwitch.setChecked(clock.getIsOpen() == 1);
+                        clockRecyclerAdapter.notifyDataSetChanged();
+                        if (clock.isSaved()) {
+                            clock.save();
+                        }
+                        break;
+                    default:
                         break;
                 }
             }
@@ -91,7 +108,7 @@ public class ClockFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    private void showDeleteDialog() {
+    private void showDeleteDialog(Clock clock) {
         final DeleteDialog dialog = new DeleteDialog.Builder(getActivity())
                 .heightDp(175)
                 .widthDp(270)
@@ -106,7 +123,9 @@ public class ClockFragment extends BaseFragment {
 
                     @Override
                     public void onDeleteClicked() {
-
+                        clock.delete();
+                        updateList();
+                        AlarmSetManager.setAlarm(getContext());
                     }
                 })
                 .build();
@@ -114,8 +133,9 @@ public class ClockFragment extends BaseFragment {
     }
 
     public void updateList() {
-        if (clockRecyclerAdapter != null){
-            clockRecyclerAdapter.changeData(DataSupport.findAll(Clock.class),
+        if (clockRecyclerAdapter != null) {
+            clockList = DataSupport.findAll(Clock.class);
+            clockRecyclerAdapter.changeData(clockList,
                     ClockRecyclerAdapter.LIST_UPDATE);
         }
     }
