@@ -20,6 +20,7 @@ import org.litepal.crud.DataSupport;
 public class RecordActivity extends BaseActivity implements RecordFragment.RecordFragmentCallback {
 
     Intent intent;
+    int nestId;
     Nest nest;
     Punch punchData;
 
@@ -28,8 +29,8 @@ public class RecordActivity extends BaseActivity implements RecordFragment.Recor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         intent = getIntent();
-        nest = (Nest) intent.getSerializableExtra(NestFragment.NEST);
-        punchData = DataSupport.where("nestId = ?", String.valueOf(nest.getId()))
+        nestId = intent.getIntExtra(NestFragment.NEST, 0);
+        punchData = DataSupport.where("nestId = ?", String.valueOf(nestId))
                 .findFirst(Punch.class);
         initView();
     }

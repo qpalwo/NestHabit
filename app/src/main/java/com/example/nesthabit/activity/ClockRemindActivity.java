@@ -30,7 +30,7 @@ public class ClockRemindActivity extends BaseActivity {
     long time;
     boolean isVibrate;
     String sound;
-    Nest nest;
+    int nestId;
     Vibrator vibrator;
     MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -57,7 +57,7 @@ public class ClockRemindActivity extends BaseActivity {
         time = intent.getLongExtra("time", 0);
         isVibrate = intent.getBooleanExtra("isVibrate", true);
         sound = intent.getStringExtra("sound");
-        nest = (Nest) intent.getSerializableExtra(NEST);
+        nestId = intent.getIntExtra(NEST, 0);
 //        Log.d(TAG, "onCreate: " + String.valueOf(nest != null));
         clockRemindTitle.setText(title);
         clockRemindTime.setText(DateUtil.getTime(time));
@@ -110,7 +110,7 @@ public class ClockRemindActivity extends BaseActivity {
                 break;
             case R.id.clock_punch:
                 Intent intent = new Intent(this, RecordActivity.class);
-                intent.putExtra(NEST, nest);
+                intent.putExtra(NEST, nestId);
                 startActivity(intent);
                 finish();
                 break;

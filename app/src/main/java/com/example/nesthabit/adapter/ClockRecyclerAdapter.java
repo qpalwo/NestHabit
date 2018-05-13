@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.nesthabit.R;
 import com.example.nesthabit.base.ItemOnClickListener;
+import com.example.nesthabit.model.DateUtil;
 import com.example.nesthabit.model.bean.Clock;
 
 import java.util.ArrayList;
@@ -138,7 +139,8 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
         }
         TextView leftTime = holder.clockItemLefttime;
         leftTime.setText(convertTimeToFormat(getNextClockTime(clock)));
-        Log.d(TAG, "onBindViewHolder: " + String.valueOf(getNextClockTime(clock)));
+        Log.d(TAG, "onBindViewHolder: " + String.valueOf(DateUtil.getUnixStamp())
+              + "\n" + String.valueOf(getNextClockTime(clock)));
     }
 
     @Override

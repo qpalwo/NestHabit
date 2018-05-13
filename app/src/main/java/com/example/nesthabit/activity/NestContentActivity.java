@@ -157,7 +157,7 @@ public class NestContentActivity extends BaseActivity {
     public void onViewClicked() {
         if (DateUtil.daysInterval(punchData.getLastPunchDate() * 1000, System.currentTimeMillis()) != 0) {
             Intent intent = new Intent(this, RecordActivity.class);
-            intent.putExtra(NEST, nest);
+            intent.putExtra(NEST, nest.getId());
             startActivity(intent);
         }
     }
